@@ -1,0 +1,70 @@
+name: Go CD
+
+on:
+  push:
+    branches:
+      - main
+      - stage
+
+env:
+  # Minimum coverage required (please do not reduce this code coverage percentage).
+  RELEASE: v.${{ github.run_number }}
+  # Do not pass the Docker tag here, it will be set in the Docker build step.
+  DOCKER_IMAGE: ghcr.io/${{ github.repository_owner }}/front
+
+jobs:
+  docker-build-and-push:
+    name: "Build and Push Docker image"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to registry
+        # This is where you will update the personal access token to GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}:${{ env.RELEASE }}
+          build-args: |
+            RELEASE=${{ env.RELEASE }}
+            PAT=${{ secrets.PAT }}
+
+  deploy-to-production:
+    name: "Deploy to Production"
+    runs-on: ubuntu-latest
+    needs: docker-build-and-push
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.HOST_PRODUCTION }}
+          username: ${{ vars.USERNAME_PRODUCTION }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            echo "${{ secrets.PAT }}" | docker login ghcr.io -u aastashov --password-stdin
+            echo "IMAGE_TAG=${{ env.RELEASE }}" > /opt/docker/tictactoe/front/.env
+            docker compose -f /opt/docker/tictactoe/front/docker-compose.yml pull
+            docker compose -f /opt/docker/tictactoe/front/docker-compose.yml up -d
+
+  deploy-to-stage:
+    name: "Deploy to Stage"
+    runs-on: ubuntu-latest
+    needs: docker-build-and-push
+    if: github.ref == 'refs/heads/stage'
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.HOST_STAGING }}
+          username: ${{ vars.USERNAME_STAGING }}
+          key: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
+          port: 22
+          script: |
+            echo "${{ secrets.PAT }}" | docker login ghcr.io -u aastashov --password-stdin
+            echo "IMAGE_TAG=${{ env.RELEASE }}" > /opt/docker/tictactoe/front/.env
+            docker compose -f /opt/docker/tictactoe/front/docker-compose.yml pull
+            docker compose -f /opt/docker/tictactoe/front/docker-compose.yml up -d
