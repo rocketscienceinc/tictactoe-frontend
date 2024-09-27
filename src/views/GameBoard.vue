@@ -2,9 +2,9 @@
 
 <template>
   <header>
-    <h1>TicTacToe</h1>
+    <h1>Game board</h1>
+    <button @click="$router.push('/')">Return to menu</button>
   </header>
-  <router-view></router-view>
 </template>
 
 <style scoped>
