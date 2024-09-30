@@ -1,14 +1,18 @@
-<script setup></script>
+<script setup>
+import AppHeader from './components/AppHeader.vue'
+</script>
 
 <template>
   <header>
-    <h1>TicTacToe</h1>
+    <AppHeader />
   </header>
-  <router-view></router-view>
+  <main><router-view></router-view></main>
 </template>
 
-<style scoped>
-header {
-  text-align: center;
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
