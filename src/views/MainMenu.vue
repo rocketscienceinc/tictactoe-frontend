@@ -8,10 +8,10 @@
       <input type="text" />
       <button class="join-button">Join</button>
     </div>
+    <div class="button1">
+      <button id="goToB" @click="$router.push('/game')">Go to Game Board</button>
+    </div>
   </div>
-  <!--<div class="button1">-->
-  <!--<button @click="$router.push('/game')">Go to Game Board</button>-->
-  <!--</div>-->
 </template>
 
 <script setup></script>
@@ -33,19 +33,19 @@ button {
   width: 250px;
 }
 
-.join-input {
-  margin-left: 110px;
-}
-
 .join-button {
   margin-left: 10px;
-  width: 100px;
+  width: 82px;
 }
 
 input {
-  height: 30px;
-  width: 245px;
+  height: 36px;
+  width: 150px;
   border-radius: 5px;
   border-width: 1px;
+}
+
+#goToB {
+  background-color: rgb(202, 202, 202);
 }
 </style>
