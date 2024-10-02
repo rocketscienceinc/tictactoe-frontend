@@ -1,20 +1,31 @@
 <script>
+import WaitingWindow from '@/components/WaitingWindow.vue'
+
 export default {
+  components: {
+    WaitingWindow //Импорт м. окна
+  },
+
   data() {
     return {
-      cells: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      currentPlayer: 'X' // var MyMark
+      cells: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], // Поле
+      currentPlayer: 'X', // Первый ход в игре
+      showModal: true //Показывает м. окно
     }
   },
-  methods: {
-    check(index) {
-      if (this.cells[index] === ' ') {
-        this.cells[index] = this.currentPlayer
-        this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'
-        // TODO: заместо текста "X/O" поставить красивые SVG изображения X и O.
 
-        // console.log(`Player ${this.cells[index]} marked cell ${index}`)
+  methods: {
+    // Демо версия ходов в игре
+    check(index) {
+      /* Можно поставить символ ЕСЛИ ячейка пуста */
+      if (this.cells[index] === ' ') {
+        this.cells[index] = this.currentPlayer // Ход игрока на поле
+        this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X' // Смена currentPlayer
+        // TODO: заменить текст "X/O" на красивые SVG изображения X и O.
       }
+    },
+    handleCloseModal() {
+      this.showModal = false //Закрываем м. окно
     }
   }
 }
@@ -23,13 +34,19 @@ export default {
 <template>
   <header></header>
   <main>
-    <div class="button2">
-      <button @click="$router.push('/')">Return to menu</button>
-    </div>
+    <WaitingWindow :isVisible="showModal" @close="handleCloseModal" />
+    <!--Окно ожидания второго игрока-->
     <div class="game-board">
+      <!--Игровое поле как массив(cells). Ячейки (cell) = индекс массива (index). -->
       <div v-for="(cell, index) in cells" :key="index" class="box" @click="check(index)">
+        <!-- Цикл для обновления состояния ячеек через индекс -->
         {{ cell }}
+        <!--Отображение состояния ячейки (X, O, _ )-->
       </div>
+    </div>
+    <div class="button2">
+      <!-- Test button-->
+      <button id="ReturnB" @click="$router.push('/')">Return to menu</button>
     </div>
   </main>
 </template>
@@ -53,5 +70,10 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 20vh;
+}
+
+#ReturnB {
+  margin-left: 30px;
+  background-color: rgb(202, 202, 202);
 }
 </style>
