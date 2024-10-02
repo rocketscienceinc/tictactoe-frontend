@@ -9,6 +9,7 @@
       <button class="join-button">Join</button>
     </div>
     <div class="button1">
+      <!-- Test button-->
       <button id="goToB" @click="$router.push('/game')">Go to Game Board</button>
     </div>
   </div>
