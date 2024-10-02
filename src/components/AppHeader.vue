@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <h1>Tic Tac Toe</h1>
-    <!--<p>hrbfhrbfh</p>-->
+    <!--Какой-то текст-->
     <div class="button-login">
       <LogIn />
     </div>
@@ -10,6 +10,9 @@
 
 <script setup>
 import LogIn from './LogIn.vue'
+defineProps({
+  greetingMessage: String
+})
 </script>
 
 <style scoped>
