@@ -52,6 +52,12 @@ export default {
 </template>
 
 <style>
+@font-face {
+  font-family: 'HomeVideoFont';
+  src: url('/assets/fonts/home_video/HomeVideo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 .box {
   display: flex;
   justify-content: center;

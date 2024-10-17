@@ -9,9 +9,23 @@
 </head>
 
 <body>
-  <div id="app"></div>
-  <script src="/src/websocket.js"></script>
-  <script type="module" src="/src/main.js"></script>
+  <div class="app-background">
+    <div id="app"></div>
+    <script src="/src/websocket.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </div>
 </body>
 
 </html>
+
+<style>
+  .app-background {
+    background-image: url('assets/background.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(50, 41, 47, 1);
+    width: 100vw;
+    height: 100vh;
+  }
+</style>
