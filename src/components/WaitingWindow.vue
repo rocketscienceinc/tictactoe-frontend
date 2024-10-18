@@ -27,6 +27,12 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'HomeVideoFont';
+  src: url('/assets/fonts/home_video/HomeVideo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 .modal {
   z-index: 1000; /* Отоброжение поверх*/
   position: fixed;
