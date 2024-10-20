@@ -1,4 +1,6 @@
-let ws = new WebSocket('ws://tictactoe.kg:9090/ws')
+import config from '@/config.js'
+
+let ws = new WebSocket(`${config.apiUrl}/ws`)
 
 ws.addEventListener('open', () => {
   console.log('WebSocket соединение установлено')
