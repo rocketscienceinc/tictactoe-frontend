@@ -1,9 +1,12 @@
 <script setup>
 import AppHeader from './components/AppHeader.vue'
-// import getCookie from './utils/cookies.js'
+import getCookie from './utils/cookies.js'
+import config from '@/config.js'
 
-// const uid = getCookie('c1')
-// console.log('uid:', uid)
+const uid = getCookie(config.cookieName)
+console.log('uid:', uid)
+console.log(config.apiUrl)
+
 </script>
 
 <template>
