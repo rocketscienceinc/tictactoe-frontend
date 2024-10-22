@@ -1,5 +1,5 @@
 <template>
-  <header></header>
+  <header><AppHeader /></header>
   <div class="menu-board">
     <button class="create-room-button menu-item" @click="$router.push('/game')">create room</button>
     <button class="play-with-bot-button menu-item" @click="$router.push('/game')">
@@ -12,7 +12,15 @@
   </div>
 </template>
 
-<script setup></script>
+<script>
+import AppHeader from '/src/components/AppHeader.vue'
+
+export default {
+  components: {
+    AppHeader
+  }
+}
+</script>
 
 <style scoped>
 @font-face {

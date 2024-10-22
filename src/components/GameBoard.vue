@@ -29,9 +29,6 @@ export default {
         this.cells[index] = this.currentPlayer
         this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'
       }
-    },
-    handleCloseModal() {
-      this.showModal = false
     }
   }
 }

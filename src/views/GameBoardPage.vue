@@ -1,17 +1,31 @@
 <script>
-// import WaitingWindow from '@/components/WaitingWindow.vue'
+import AppHeader from '@/components/AppHeader.vue'
+// import WaitingWindow from '@/components/windows/WaitingWindow.vue'
 import GameBoard from '@/components/GameBoard.vue'
+import StatusWindow from '@/components/windows/StatusWindow.vue'
 
 export default {
   components: {
-    GameBoard
+    // WaitingWindow,
+    AppHeader,
+    GameBoard,
+    StatusWindow
+  },
+
+  data() {
+    return {
+      showModal: true
+    }
   }
 }
 </script>
 
 <template>
-  <!-- <WaitingWindow :isVisible="showModal" @close="handleCloseModal" /> -->
-  <!--Окно ожидания второго игрока-->
+  <header>
+    <AppHeader />
+  </header>
+  <StatusWindow :isVisible="showModal" :statusText="'you win!'" />
+  <!-- <WaitingWindow :isVisible="showModal" :codeJoinText="1739553794" /> -->
   <div class="page">
     <GameBoard />
     <button class="leave-b" @click="$router.push('/')">leave the game</button>

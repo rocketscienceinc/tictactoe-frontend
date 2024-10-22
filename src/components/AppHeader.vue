@@ -5,7 +5,7 @@
       <span class="tac"> Tac</span>
       <span class="toe"> Toe</span>
     </h1>
-    <!--Какой-то текст-->
+    <p class="status-message">{{ StatusMessage }}</p>
     <div class="button-login">
       <LogIn />
     </div>
@@ -15,7 +15,7 @@
 <script setup>
 import LogIn from './LogIn.vue'
 defineProps({
-  greetingMessage: String
+  StatusMessage: String
 })
 </script>
 
@@ -56,6 +56,10 @@ h1 {
 
 .button-login {
   margin-right: 2%;
+}
+
+.status-message {
+  font-family: 'HomeVideoFont';
 }
 
 @media (max-width: 600px) {
