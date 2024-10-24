@@ -1,10 +1,28 @@
-<script setup>
-import getCookie from './utils/cookies.js'
-import config from '@/config.js'
+<script>
+// import getCookie from './utils/cookies.js'
+// import config from '@/config.js'
 
-const uid = getCookie(config.cookieName)
-console.log('uid:', uid)
-console.log(config.apiUrl)
+// const uid = getCookie(config.cookieName)
+// import { ws } from '@/websocket'
+
+// ws.addEventListener('open', () => {
+//   console.log('WebSocket соединение установлено')
+//   ws.send(
+//     JSON.stringify({
+//       action: 'connect',
+//       payload: {
+//         player: {
+//           id: uid
+//         }
+//       }
+//     })
+//   )
+// })
+
+// ws.addEventListener('message', (event) => {
+//   const message = JSON.parse(event.data)
+//   console.log(message)
+// })
 </script>
 
 <template>

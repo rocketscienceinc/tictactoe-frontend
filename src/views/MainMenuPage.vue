@@ -1,7 +1,7 @@
 <template>
   <header><AppHeader /></header>
   <div class="menu-board">
-    <button class="create-room-button menu-item" @click="$router.push('/game')">create room</button>
+    <button class="create-room-button menu-item" @click="create_room">create room</button>
     <button class="play-with-bot-button menu-item" @click="$router.push('/game')">
       play with bot
     </button>
@@ -13,13 +13,67 @@
 </template>
 
 <script>
-import AppHeader from '/src/components/AppHeader.vue'
+import AppHeader from '../components/AppHeader.vue'
+import { ws } from '../websocket.js'
+// import getCookie from '../utils/cookies.js'
+// import config from '../config.js'
+
+// const uid = getCookie(config.cookieName)
+
+let idUser
 
 export default {
   components: {
     AppHeader
+  },
+  methods: {
+    create_room() {
+      try {
+        //Запрос на создание игровой комнаты
+        ws.send(
+          JSON.stringify({
+            action: 'game:new',
+            payload: {
+              player: {
+                //Обозна id пользователя, который создаёт комнату
+                id: idUser
+              }
+            }
+          })
+        )
+        //test
+        console.log('create room')
+        //Переход на страницу игры
+        this.$router.push('/game')
+      } catch {
+        alert('WebSocket соединение не установлено')
+      }
+    }
   }
 }
+
+//Подключение к серверу для нового пользователя
+ws.addEventListener('open', () => {
+  console.log('WebSocket соединение установлено')
+  ws.send(
+    JSON.stringify({
+      action: 'connect',
+      payload: {
+        player: {
+          id: ''
+        }
+      }
+    })
+  )
+  //Забираем id из ответа сервера
+  ws.addEventListener('message', (event) => {
+    const message = JSON.parse(event.data)
+    if (message.payload && message.payload.player && message.payload.player.id) {
+      idUser = message.payload.player.id
+      // console.log(idUser)
+    }
+  })
+})
 </script>
 
 <style scoped>
