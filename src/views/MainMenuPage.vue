@@ -5,6 +5,7 @@
     <button class="play-with-bot-button menu-item" @click="$router.push('/game')">
       play with bot
     </button>
+    <!-- * TODO: Реализовать вход в комнату второго игрока через инпут и кнопку. Проверять через инкогнито-->
     <div class="join-box">
       <input class="join-input" type="text" placeholder="your room code" />
       <button class="join-button">Join</button>
@@ -13,14 +14,9 @@
 </template>
 
 <script>
+import { emit, registerHandlerOnAction } from '@/websocket'
 import AppHeader from '../components/AppHeader.vue'
-import { ws } from '../websocket.js'
-// import getCookie from '../utils/cookies.js'
-// import config from '../config.js'
-
-// const uid = getCookie(config.cookieName)
-
-let idUser
+import appState from '@/state'
 
 export default {
   components: {
@@ -28,52 +24,19 @@ export default {
   },
   methods: {
     create_room() {
-      try {
-        //Запрос на создание игровой комнаты
-        ws.send(
-          JSON.stringify({
-            action: 'game:new',
-            payload: {
-              player: {
-                //Обозна id пользователя, который создаёт комнату
-                id: idUser
-              }
-            }
-          })
-        )
-        //test
-        console.log('create room')
-        //Переход на страницу игры
-        this.$router.push('/game')
-      } catch {
-        alert('WebSocket соединение не установлено')
-      }
+      emit('game:new', { player: { id: appState.userId } })
     }
+  },
+  mounted() {
+    registerHandlerOnAction('game:new', (payload) => {
+      console.log('Получено действие game:new', payload)
+      appState.board = payload.game.board
+      appState.gameId = payload.game.id
+      appState.gameStatus = payload.game.status
+      this.$router.push('/game') // Use 'this.$router' with arrow function to preserve context
+    })
   }
 }
-
-//Подключение к серверу для нового пользователя
-ws.addEventListener('open', () => {
-  console.log('WebSocket соединение установлено')
-  ws.send(
-    JSON.stringify({
-      action: 'connect',
-      payload: {
-        player: {
-          id: ''
-        }
-      }
-    })
-  )
-  //Забираем id из ответа сервера
-  ws.addEventListener('message', (event) => {
-    const message = JSON.parse(event.data)
-    if (message.payload && message.payload.player && message.payload.player.id) {
-      idUser = message.payload.player.id
-      // console.log(idUser)
-    }
-  })
-})
 </script>
 
 <style scoped>

@@ -14,6 +14,10 @@
 </template>
 
 <script>
+/**
+ * TODO: Отправка сообщение в websocket об ходе при клике на ячейку
+ */
+
 export default {
   data() {
     return {

@@ -5,7 +5,7 @@
       <span class="tac"> Tac</span>
       <span class="toe"> Toe</span>
     </h1>
-    <p class="status-message">{{ StatusMessage }}</p>
+    <p class="status-message">{{ StatusMessage }} connected: {{ appState.connected }}</p>
     <div class="button-login">
       <LogIn />
     </div>
@@ -13,6 +13,7 @@
 </template>
 
 <script setup>
+import appState from '@/state'
 import LogIn from './LogIn.vue'
 defineProps({
   StatusMessage: String

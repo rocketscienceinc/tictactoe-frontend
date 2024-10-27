@@ -2,61 +2,18 @@
   <div v-if="isVisible" class="modal">
     <div class="modal-content">
       <p>Code to join this room:</p>
-      <p class="code-to-join">{{ idGame }}</p>
+      <p class="code-to-join">{{ appState.gameId }}</p>
       <p>or use link:</p>
-      <p class="link-to-join">https://tictactoe.io/join/{{ idGame }}</p>
+      <p class="link-to-join">https://tictactoe.kg/join/{{ appState.gameId }}</p>
       <p>waiting for your opponent...</p>
     </div>
   </div>
 </template>
 
-<script>
-import { ws } from '../../websocket.js'
+<script setup>
+import appState from '@/state'
 
-// let idGame
-
-export default {
-  name: 'WaitingWindow',
-  props: {
-    isVisible: {
-      type: Boolean,
-      required: true
-    }
-  },
-  data() {
-    return {
-      idGame: null
-    }
-  },
-  mounted() {
-    ws.addEventListener('message', this.handleWebSocketMessage)
-  },
-  beforeUnmount() {
-    ws.removeEventListener('message', this.handleWebSocketMessage)
-  },
-  methods: {
-    handleWebSocketMessage(event) {
-      const message = JSON.parse(event.data)
-      // console.log(message)
-
-      // Проверяем наличие id и присваиваем его idGame
-      if (message.payload && message.payload.game && message.payload.game.id) {
-        this.idGame = message.payload.game.id
-        // console.log(this.idGame)
-      }
-    }
-  }
-}
-
-// ws.addEventListener('message', (event) => {
-//   const message = JSON.parse(event.data)
-//   console.log(message)
-
-//   if (message.payload && message.payload.game && message.payload.game.id) {
-//     idGame = message.payload.game.id
-//     console.log(idGame)
-//   }
-// })
+const isVisible = appState.gameStatus === 'waiting'
 </script>
 
 <style scoped>
