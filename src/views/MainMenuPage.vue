@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { emit, registerHandlerOnAction } from '@/websocket'
+import { emit, register } from '@/websocket'
 import AppHeader from '../components/AppHeader.vue'
 import appState from '@/state'
 
@@ -28,7 +28,7 @@ export default {
     }
   },
   mounted() {
-    registerHandlerOnAction('game:new', (payload) => {
+    register('game:new', (payload) => {
       console.log('Получено действие game:new', payload)
       appState.board = payload.game.board
       appState.gameId = payload.game.id
