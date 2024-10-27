@@ -2,28 +2,18 @@
   <div v-if="isVisible" class="modal">
     <div class="modal-content">
       <p>Code to join this room:</p>
-      <p class="code-to-join">{{ codeJoinText }}</p>
+      <p class="code-to-join">{{ appState.gameId }}</p>
       <p>or use link:</p>
-      <p class="link-to-join">https://tictactoe.io/join/{{ codeJoinText }}</p>
+      <p class="link-to-join">https://tictactoe.kg/join/{{ appState.gameId }}</p>
       <p>waiting for your opponent...</p>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'WaitingWindow',
-  props: {
-    isVisible: {
-      type: Boolean,
-      required: true
-    },
-    codeJoinText: {
-      type: Number,
-      required: true
-    }
-  }
-}
+<script setup>
+import appState from '@/state'
+
+const isVisible = appState.gameStatus === 'waiting'
 </script>
 
 <style scoped>

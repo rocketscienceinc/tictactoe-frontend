@@ -1,22 +1,10 @@
 <template>
-  <button class="log-in-button">Log in</button>
+  <button class="log-in-button">{{ appState.userId }}</button>
   <!-- Позже использовать редирект. <button @click="goToLogInPage">Log in</button>-->
 </template>
 
-<script>
-export default {
-  name: 'LogIn'
-}
-
-/* 
-export default {
-  methods: {
-    goToLogInPage() {
-      this.$router.push({ name: 'LogInPage' }); 
-    }
-  }
-};
- */
+<script setup>
+import appState from '../state'
 </script>
 
 <style>
@@ -30,7 +18,7 @@ export default {
   font-family: 'HomeVideoFont';
   background-color: transparent;
   border: transparent;
-  font-size: 30px;
+  font-size: 10px;
   color: rgba(255, 255, 255, 1);
 }
 

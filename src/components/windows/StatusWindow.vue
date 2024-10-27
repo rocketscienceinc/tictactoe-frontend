@@ -1,16 +1,9 @@
 <template>
   <div v-if="isVisible" class="modal">
     <div class="modal-content">
-      <p
-        :class="{
-          'game-status': true,
-          win: statusText === 'you win!',
-          lose: statusText === 'you lose!'
-        }"
-      >
-        {{ statusText }}
+      <p class="game-status" :class="winnerMark === myMark ? 'win' : 'lose'">
+        {{ displayText }}
       </p>
-
       <button class="new-room-b">new room</button>
       <button class="play-again-b">play again</button>
     </div>
@@ -25,9 +18,24 @@ export default {
       type: Boolean,
       required: true
     },
-    statusText: {
+    // statusText: {
+    //   type: String,
+    //   required: true
+    // },
+
+    winnerMark: {
       type: String,
       required: true
+    },
+
+    myMark: {
+      type: String,
+      required: true
+    },
+
+    displayText: {
+      type: String,
+      required: false
     }
   }
 }

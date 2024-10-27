@@ -1,22 +1,24 @@
 <script>
 import AppHeader from '@/components/AppHeader.vue'
-// import WaitingWindow from '@/components/windows/WaitingWindow.vue'
+import WaitingWindow from '@/components/windows/WaitingWindow.vue'
 import GameBoard from '@/components/GameBoard.vue'
-import StatusWindow from '@/components/windows/StatusWindow.vue'
+// import StatusWindow from '@/components/windows/StatusWindow.vue'
 
 export default {
   components: {
-    // WaitingWindow,
+    WaitingWindow,
     AppHeader,
-    GameBoard,
-    StatusWindow
+    GameBoard
+    // StatusWindow
   },
 
   data() {
     return {
       showModal: true
     }
-  }
+  },
+
+  methods: {}
 }
 </script>
 
@@ -24,15 +26,23 @@ export default {
   <header>
     <AppHeader />
   </header>
-  <StatusWindow :isVisible="showModal" :statusText="'you win!'" />
-  <!-- <WaitingWindow :isVisible="showModal" :codeJoinText="1739553794" /> -->
+  <WaitingWindow />
+
+  <!-- <StatusWindow :isVisible="showModal" :winnerMark="'X'" :myMark="'X'" :displayText="'you win!'" /> -->
   <div class="page">
     <GameBoard />
+    <!-- * TODO: Попросить бэк сделать запрос на выход из игры. 
+    Идея: В статистику не будет указываться как завершённая игра, но будет входить в статистику того, как часто пользователь
+    выходит во время игр. -->
     <button class="leave-b" @click="$router.push('/')">leave the game</button>
   </div>
 </template>
 
 <style>
+/**
+* TODO: Исправить проблемы с вёрсткой на мобильных устройствах (белые поля и другое) (Есть видео подсказка в телеграмме)
+*/
+
 @font-face {
   font-family: 'HomeVideoFont';
   src: url('/assets/fonts/home_video/HomeVideo.ttf') format('truetype');
@@ -55,6 +65,10 @@ export default {
   font-size: 40px;
   margin-top: 100px;
 }
+
+/**
+* TODO: Исправить проблемы с анимацией кнопки на мобильных устройствах (Есть видео подсказка в телеграмме)
+*/
 
 .leave-b:hover {
   font-size: 50px;

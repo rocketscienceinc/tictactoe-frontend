@@ -1,10 +1,28 @@
-<script setup>
-import getCookie from './utils/cookies.js'
-import config from '@/config.js'
+<script>
+import { emit, ws, register } from '@/websocket'
+import config from './config'
+import appState from './state'
 
-const uid = getCookie(config.cookieName)
-console.log('uid:', uid)
-console.log(config.apiUrl)
+appState.userId = localStorage.getItem(config.cookieName)
+
+ws.addEventListener('open', () => {
+  emit('connect', { player: { id: appState.userId } })
+})
+export default {
+  mounted() {
+    register('connect', (payload) => {
+      console.log('Получили сообщения от action connect', payload)
+      localStorage.setItem(config.cookieName, payload.player.id)
+      appState.userId = payload.player.id
+      if (payload.game !== undefined) {
+        appState.board = payload.game.board
+        appState.gameId = payload.game.id
+        appState.gameStatus = payload.game.status
+        this.$router.push('/game')
+      }
+    })
+  }
+}
 </script>
 
 <template>

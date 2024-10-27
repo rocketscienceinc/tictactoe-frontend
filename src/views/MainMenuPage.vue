@@ -1,10 +1,11 @@
 <template>
   <header><AppHeader /></header>
   <div class="menu-board">
-    <button class="create-room-button menu-item" @click="$router.push('/game')">create room</button>
+    <button class="create-room-button menu-item" @click="create_room">create room</button>
     <button class="play-with-bot-button menu-item" @click="$router.push('/game')">
       play with bot
     </button>
+    <!-- * TODO: Реализовать вход в комнату второго игрока через инпут и кнопку. Проверять через инкогнито-->
     <div class="join-box">
       <input class="join-input" type="text" placeholder="your room code" />
       <button class="join-button">Join</button>
@@ -13,11 +14,27 @@
 </template>
 
 <script>
-import AppHeader from '/src/components/AppHeader.vue'
+import { emit, registerHandlerOnAction } from '@/websocket'
+import AppHeader from '../components/AppHeader.vue'
+import appState from '@/state'
 
 export default {
   components: {
     AppHeader
+  },
+  methods: {
+    create_room() {
+      emit('game:new', { player: { id: appState.userId } })
+    }
+  },
+  mounted() {
+    registerHandlerOnAction('game:new', (payload) => {
+      console.log('Получено действие game:new', payload)
+      appState.board = payload.game.board
+      appState.gameId = payload.game.id
+      appState.gameStatus = payload.game.status
+      this.$router.push('/game') // Use 'this.$router' with arrow function to preserve context
+    })
   }
 }
 </script>
