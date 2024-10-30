@@ -16,9 +16,7 @@ export default {
     return {
       showModal: true
     }
-  },
-
-  methods: {}
+  }
 }
 </script>
 

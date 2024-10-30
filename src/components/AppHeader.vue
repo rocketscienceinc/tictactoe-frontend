@@ -5,7 +5,11 @@
       <span class="tac"> Tac</span>
       <span class="toe"> Toe</span>
     </h1>
-    <p class="status-message">{{ StatusMessage }} connected: {{ appState.connected }}</p>
+    <p class="status-message">
+      <!--{{ StatusMessage }}-->
+      connected: {{ appState.connected }}
+      <!--Отображае статус подключения-->
+    </p>
     <div class="button-login">
       <LogIn />
     </div>
@@ -15,9 +19,10 @@
 <script setup>
 import appState from '@/state'
 import LogIn from './LogIn.vue'
-defineProps({
-  StatusMessage: String
-})
+// defineProps({
+//   StatusMessage: String
+// ---- Позже здесь будем отображать ход x/o ------
+// })
 </script>
 
 <style scoped>

@@ -1,4 +1,5 @@
 <template>
+  <!-- Пока что отображаем здесь id пользователя, импортируя его из appState-->
   <button class="log-in-button">{{ appState.userId }}</button>
   <!-- Позже использовать редирект. <button @click="goToLogInPage">Log in</button>-->
 </template>

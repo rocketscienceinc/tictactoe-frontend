@@ -1,14 +1,12 @@
 <template>
   <header><AppHeader /></header>
   <div class="menu-board">
-    <button class="create-room-button menu-item" @click="create_room">create room</button>
-    <button class="play-with-bot-button menu-item" @click="$router.push('/game')">
-      play with bot
-    </button>
+    <button class="create-room-button" @click="create_room">create room</button>
+    <button class="play-with-bot-button" @click="$router.push('/game')">play with bot</button>
     <!-- * TODO: Реализовать вход в комнату второго игрока через инпут и кнопку. Проверять через инкогнито-->
     <div class="join-box">
-      <input class="join-input" type="text" placeholder="your room code" />
-      <button class="join-button">Join</button>
+      <input v-model="roomCode" class="join-input" type="text" placeholder="your room code" />
+      <button class="join-button" @click="join_game">Join</button>
     </div>
   </div>
 </template>
@@ -22,18 +20,40 @@ export default {
   components: {
     AppHeader
   },
+  data() {
+    return {
+      roomCode: '' // Переменная для хранения введенного id комнаты с игрой
+    }
+  },
   methods: {
     create_room() {
-      emit('game:new', { player: { id: appState.userId } })
+      emit('game:new', { player: { id: appState.userId } }) //Делае запрос на создание игры с данными об id игрока, который делает этот запрос
+    },
+    join_game() {
+      emit('game:join', { player: { id: appState.userId }, game: { id: this.roomCode } })
     }
   },
   mounted() {
+    //Функция-обработчик для действия/события 'game:new'
     register('game:new', (payload) => {
       console.log('Получено действие game:new', payload)
       appState.board = payload.game.board
       appState.gameId = payload.game.id
       appState.gameStatus = payload.game.status
-      this.$router.push('/game') // Use 'this.$router' with arrow function to preserve context
+      //Сохраняем данные в appState
+      this.$router.push(`/game/${payload.game.id}`)
+      //Переходим в комнату игры
+    })
+
+    // Функция-обработчик для действия/события 'game:join'
+    register('game:join', (payload) => {
+      console.log('Получено действие game:join', payload)
+      appState.board = payload.game.board
+      appState.gameId = payload.game.id
+      appState.gameStatus = payload.game.status
+      // Сохраняем данные в appState
+      this.$router.push(`/game/${payload.game.id}`)
+      // Переходим в комнату игры
     })
   }
 }
