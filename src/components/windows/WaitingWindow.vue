@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isVisible" class="modal">
+  <div v-if="appState.gameStatus === 'waiting'" class="modal">
     <div class="modal-content">
       <p>Code to join this room:</p>
       <p class="code-to-join">{{ appState.gameId }}</p>
@@ -13,7 +13,8 @@
 <script setup>
 import appState from '@/state'
 
-const isVisible = appState.gameStatus === 'waiting'
+// Отображаем окно ожидания второго игрока, если статус игры равен значению 'ожидание'
+// const isVisible = appState.gameStatus === 'waiting'
 </script>
 
 <style scoped>
