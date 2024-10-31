@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isVisible" class="modal">
+  <div v-if="appState.gameStatus === 'finished'" class="modal">
     <div class="modal-content">
-      <p class="game-status" :class="winnerMark === myMark ? 'win' : 'lose'">
+      <p class="game-status" :class="gameStatusClass">
         {{ displayText }}
       </p>
       <button class="new-room-b">new room</button>
@@ -10,35 +10,28 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'StatusWindow',
-  props: {
-    isVisible: {
-      type: Boolean,
-      required: true
-    },
-    // statusText: {
-    //   type: String,
-    //   required: true
-    // },
+<script setup>
+import appState from '@/state'
+import { ref, watch } from 'vue'
 
-    winnerMark: {
-      type: String,
-      required: true
-    },
+const gameStatusClass = ref('')
 
-    myMark: {
-      type: String,
-      required: true
-    },
-
-    displayText: {
-      type: String,
-      required: false
+const displayText = ref('')
+watch(
+  () => appState.winner,
+  (newWinner) => {
+    if (newWinner === appState.playerMark) {
+      displayText.value = 'you win!'
+      gameStatusClass.value = 'win'
+    } else if (newWinner === '-') {
+      displayText.value = 'tie'
+    } else {
+      displayText.value = 'you lose!!'
+      gameStatusClass.value = 'lose'
     }
+    console.log(newWinner, appState.playerMark)
   }
-}
+)
 </script>
 
 <style scoped>

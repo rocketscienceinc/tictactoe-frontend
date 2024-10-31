@@ -26,10 +26,13 @@ export default {
   },
   methods: {
     create_room() {
-      emit('game:new', { player: { id: appState.userId } }) //Делае запрос на создание игры с данными об id игрока, который делает этот запрос
+      emit('game:new', { player: { id: appState.userId }, game: { type: 'private' } }) //Делае запрос на создание игры с данными об id игрока, который делает этот запрос
     },
     join_game() {
-      emit('game:join', { player: { id: appState.userId }, game: { id: this.roomCode } })
+      emit('game:join', {
+        player: { id: appState.userId },
+        game: { id: this.roomCode, type: 'private' }
+      })
     }
   },
   mounted() {
@@ -39,8 +42,9 @@ export default {
       appState.board = payload.game.board
       appState.gameId = payload.game.id
       appState.gameStatus = payload.game.status
+      appState.playerMark = payload.player.mark
       //Сохраняем данные в appState
-      this.$router.push(`/game/${payload.game.id}`)
+      this.$router.push(`/game`)
       //Переходим в комнату игры
     })
 
@@ -50,8 +54,9 @@ export default {
       appState.board = payload.game.board
       appState.gameId = payload.game.id
       appState.gameStatus = payload.game.status
+      appState.playerMark = payload.player.mark
       // Сохраняем данные в appState
-      this.$router.push(`/game/${payload.game.id}`)
+      this.$router.push(`/game`)
       // Переходим в комнату игры
     })
   }

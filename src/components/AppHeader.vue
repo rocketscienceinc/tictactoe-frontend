@@ -7,7 +7,7 @@
     </h1>
     <p class="status-message">
       <!--{{ StatusMessage }}-->
-      connected: {{ appState.connected }}
+      connected: {{ appState.connected }} mark: {{ appState.playerMark }}
       <!--Отображае статус подключения-->
     </p>
     <div class="button-login">

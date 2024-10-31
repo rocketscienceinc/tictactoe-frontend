@@ -12,9 +12,6 @@
 
 <script setup>
 import appState from '@/state'
-
-// Отображаем окно ожидания второго игрока, если статус игры равен значению 'ожидание'
-// const isVisible = appState.gameStatus === 'waiting'
 </script>
 
 <style scoped>

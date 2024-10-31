@@ -2,14 +2,15 @@
 import AppHeader from '@/components/AppHeader.vue'
 import WaitingWindow from '@/components/windows/WaitingWindow.vue'
 import GameBoard from '@/components/GameBoard.vue'
-// import StatusWindow from '@/components/windows/StatusWindow.vue'
+
+import StatusWindow from '@/components/windows/StatusWindow.vue'
 
 export default {
   components: {
     WaitingWindow,
     AppHeader,
-    GameBoard
-    // StatusWindow
+    GameBoard,
+    StatusWindow
   }
 }
 </script>
@@ -19,8 +20,7 @@ export default {
     <AppHeader />
   </header>
   <WaitingWindow />
-
-  <!-- <StatusWindow :isVisible="showModal" :winnerMark="'X'" :myMark="'X'" :displayText="'you win!'" /> -->
+  <StatusWindow />
   <div class="page">
     <GameBoard />
     <!-- * TODO: Попросить бэк сделать запрос на выход из игры. 

@@ -6,10 +6,12 @@ import { reactive } from 'vue'
 const appState = reactive({
   connected: false,
   userId: '',
-  board: null,
+  board: ['', '', '', '', '', '', '', '', ''],
   gameId: '',
   gameStatus: '',
-  playerMark: ''
+  playerMark: '',
+  winner: '',
+  playerTurn: ''
 })
 // Все эти свойства реактивны: любое их изменение автоматически отражается в пользовательском интерфейсе, если интерфейс использует их.
 export default appState

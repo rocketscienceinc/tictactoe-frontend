@@ -1,6 +1,6 @@
 <template>
   <div class="game-board">
-    <div v-for="(cell, index) in cells" :key="index" class="box" @click="check(index)">
+    <div v-for="(cell, index) in appState.board" :key="index" class="box" @click="check(index)">
       <span
         :class="{
           x: cell === 'X',
@@ -13,36 +13,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { emit, register } from '@/websocket'
 import appState from '@/state'
 
-export default {
-  data() {
-    return {
-      cells: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      showModal: true
-    }
-  },
-
-  methods: {
-    check(index) {
-      emit('game:turn', { player: { id: appState.userId }, cell: index })
-    }
-  },
-  mounted() {
-    //Функция-обработчик для действия/события 'game:new'
-    register('game:turn:update', (payload) => {
-      console.log('Получено действие game:turn:update', payload)
-      appState.board = payload.game.board
-      appState.gameId = payload.game.id
-      appState.gameStatus = payload.game.status
-
-      this.cells = payload.game.board
-      console.log(this.cells)
-    })
-  }
+function check(index) {
+  emit('game:turn', { player: { id: appState.userId }, cell: index })
 }
+
+//Функция-обработчик для действия/события 'game:turn:update'
+register('game:turn', (payload) => {
+  console.log('Получено действие game:turn', payload)
+
+  appState.gameId = payload.game.id
+  appState.winner = payload.game.winner
+  appState.board = payload.game.board
+  appState.gameStatus = payload.game.status
+})
 </script>
 
 <style>

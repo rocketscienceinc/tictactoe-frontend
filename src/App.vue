@@ -24,6 +24,8 @@ export default {
 
       localStorage.setItem(config.cookieName, payload.player.id)
       appState.userId = payload.player.id
+      appState.playerMark = payload.player.mark
+
       //Обновляем userId в localStorage и appState (что помогает в дальнейшем сохранять пользователя между сессиями)
 
       if (payload.game !== undefined) {
@@ -31,8 +33,10 @@ export default {
         appState.board = payload.game.board
         appState.gameId = payload.game.id
         appState.gameStatus = payload.game.status
-        this.$router.push(`/game/${payload.game.id}`)
+        this.$router.push(`/game`)
         //Если игрок случайно выйдит из игры, закрыв вкладку или у него вырубился интернет, то при входе на http://tictactoe.kg/ пользователя перекинет на активную игру.
+      } else {
+        this.$router.push(`/`)
       }
     })
   }
