@@ -10,12 +10,6 @@ export default {
     AppHeader,
     GameBoard
     // StatusWindow
-  },
-
-  data() {
-    return {
-      showModal: true
-    }
   }
 }
 </script>

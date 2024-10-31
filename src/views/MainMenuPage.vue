@@ -3,7 +3,6 @@
   <div class="menu-board">
     <button class="create-room-button" @click="create_room">create room</button>
     <button class="play-with-bot-button" @click="$router.push('/game')">play with bot</button>
-    <!-- * TODO: Реализовать вход в комнату второго игрока через инпут и кнопку. Проверять через инкогнито-->
     <div class="join-box">
       <input v-model="roomCode" class="join-input" type="text" placeholder="your room code" />
       <button class="join-button" @click="join_game">Join</button>

@@ -14,26 +14,33 @@
 </template>
 
 <script>
-/**
- * TODO: Отправка сообщение в websocket об ходе при клике на ячейку
- */
+import { emit, register } from '@/websocket'
+import appState from '@/state'
 
 export default {
   data() {
     return {
       cells: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      currentPlayer: 'X',
       showModal: true
     }
   },
 
   methods: {
     check(index) {
-      if (this.cells[index] === ' ') {
-        this.cells[index] = this.currentPlayer
-        this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'
-      }
+      emit('game:turn', { player: { id: appState.userId }, cell: index })
     }
+  },
+  mounted() {
+    //Функция-обработчик для действия/события 'game:new'
+    register('game:turn:update', (payload) => {
+      console.log('Получено действие game:turn:update', payload)
+      appState.board = payload.game.board
+      appState.gameId = payload.game.id
+      appState.gameStatus = payload.game.status
+
+      this.cells = payload.game.board
+      console.log(this.cells)
+    })
   }
 }
 </script>
