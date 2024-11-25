@@ -1,15 +1,16 @@
 <template>
   <div class="header">
-    <h1>
+    <p class="logo">
       <span class="tic">Tic</span>
       <span class="tac"> Tac</span>
       <span class="toe"> Toe</span>
-    </h1>
-    <p class="status-message">
-      <!--{{ StatusMessage }}-->
-      connected: {{ appState.connected }} mark: {{ appState.playerMark }}
-      <!--Отображае статус подключения-->
     </p>
+    <p class="logo2">
+      <span class="tic">T</span>
+      <span class="tac">T</span>
+      <span class="toe">T</span>
+    </p>
+    <div class="mark"></div>
     <div class="button-login">
       <LogIn />
     </div>
@@ -17,12 +18,7 @@
 </template>
 
 <script setup>
-import appState from '@/state'
 import LogIn from './LogIn.vue'
-// defineProps({
-//   StatusMessage: String
-// ---- Позже здесь будем отображать ход x/o ------
-// })
 </script>
 
 <style scoped>
@@ -38,39 +34,84 @@ import LogIn from './LogIn.vue'
   align-items: center;
   background-color: rgba(50, 41, 47, 0.37);
   backdrop-filter: blur(10px);
-  margin: 0;
-  padding: 10px;
+  margin: 0px;
 }
 
-h1 {
-  margin-left: 2%;
+.logo {
   font-family: 'HomeVideoFont';
+  font-size: 2.5rem;
+  padding-left: 2%;
+  margin: 0px;
+}
+
+.logo2 {
+  font-family: 'HomeVideoFont';
+  font-size: 2.5rem;
+  padding-left: 2%;
+  margin: 0px;
 }
 
 .tic {
   color: rgba(255, 255, 255, 1);
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  text-shadow:
+    0 0 20px rgba(255, 255, 255, 0.8),
+    -2px 2px 0 rgba(195, 187, 187, 1);
 }
 .tac {
   color: rgba(255, 74, 88, 1);
-  text-shadow: 0 0 20px rgba(255, 74, 88, 0.6);
+  text-shadow:
+    0 0 20px rgba(255, 74, 88, 0.8),
+    -2px 2px 0 rgba(204, 41, 54, 1);
 }
 .toe {
   color: rgba(20, 224, 209, 1);
-  text-shadow: 0 0 20px rgba(20, 224, 209, 0.6);
+  text-shadow:
+    0 0 20px rgba(20, 224, 209, 0.8),
+    -2px 2px 0 rgba(4, 154, 143, 1);
 }
 
 .button-login {
   margin-right: 2%;
+  padding: 7px 10px;
 }
 
-.status-message {
+.mark {
   font-family: 'HomeVideoFont';
+  font-size: 2.5rem;
 }
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 30px;
+@media (width <= 768px) {
+  .logo {
+    font-size: 2rem;
+  }
+  .logo2 {
+    display: none;
+  }
+
+  .button-login {
+    margin-right: 1%;
+    padding: 7px 10px;
+  }
+}
+@media (width >= 768px) {
+  .logo {
+    display: initial;
+  }
+
+  .logo2 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .logo {
+    font-size: 1.5rem;
   }
 }
 </style>

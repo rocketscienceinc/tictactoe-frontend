@@ -1,12 +1,8 @@
 <template>
-  <!-- Пока что отображаем здесь id пользователя, импортируя его из appState-->
-  <button class="log-in-button">{{ appState.userId }}</button>
-  <!-- Позже использовать редирект. <button @click="goToLogInPage">Log in</button>-->
+  <button class="log-in-button">log in</button>
 </template>
 
-<script setup>
-import appState from '../state'
-</script>
+<script setup></script>
 
 <style>
 @font-face {
@@ -19,13 +15,13 @@ import appState from '../state'
   font-family: 'HomeVideoFont';
   background-color: transparent;
   border: transparent;
-  font-size: 10px;
+  font-size: 2.5rem;
   color: rgba(255, 255, 255, 1);
 }
 
-@media (max-width: 600px) {
+@media (width <= 768px) {
   .log-in-button {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
 }
 </style>
