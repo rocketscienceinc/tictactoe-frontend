@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <div class="app-background"><router-view></router-view></div>
 </template>
 <script></script>
 <style>
@@ -8,6 +8,17 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'HomeVideoFont', sans-serif;
+  height: 100%;
+}
+
+.app-background {
+  background-image: url('assets/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(50, 41, 47, 1);
+  height: 100%;
+  width: 100%;
 }
 
 button {
