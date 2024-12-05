@@ -4,9 +4,11 @@
     <main>
       <div class="welcome-container">
         <p class="welcome-container__header">WELCOME</p>
-        <button class="welcome-container__play-button">PLAY</button>
+        <button class="welcome-container__play-button" @click="$router.push('/game')">PLAY</button>
       </div>
       <div class="footer-container">
+        <button class="buttons" @click="$router.push('/no-internet')">no-internet page</button>
+        <button class="buttons" @click="$router.push('/error404')">error404 page</button>
         <button class="footer-container__about-us-button" @click="$router.push('/about-us')">
           ABOUT US
         </button>

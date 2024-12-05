@@ -5,6 +5,9 @@
       <div class="header__title__tac">TAC</div>
       <div class="header__title__toe">TOE</div>
     </div>
+
+    <div class="header__game-mark">&nbsp;</div>
+
     <div class="header__log-in-button">LOG IN</div>
   </header>
 </template>

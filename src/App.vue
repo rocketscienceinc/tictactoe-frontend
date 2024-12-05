@@ -24,6 +24,12 @@ body {
 button {
   font-family: 'HomeVideoFont', sans-serif;
 }
+
+h1,
+p {
+  color: white;
+}
+
 @font-face {
   font-family: 'HomeVideoFont';
   src: url('/assets/fonts/home_video/HomeVideo.ttf') format('truetype');
