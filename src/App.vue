@@ -36,4 +36,10 @@ p {
   font-weight: normal;
   font-style: normal;
 }
+
+:root {
+  --blue: rgba(20, 224, 209, 1);
+  --red: rgba(255, 74, 88, 1);
+  --yellow: rgba(249, 173, 54, 1);
+}
 </style>

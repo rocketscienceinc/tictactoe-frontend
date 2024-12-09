@@ -8,33 +8,39 @@
         </div>
         <p class="top-container__header">ABOUT US</p>
       </div>
-      <div class="botton-container">
-        <div class="botton-container__board">
-          <p class="botton-container__board__position">web-designer</p>
-          <div class="botton-container__board__position__contact web-designer-container">
-            <p class="botton-container__board__position__contact__name">mariana:&nbsp;</p>
-            <div class="botton-container__board__position__contact__url">
+      <div class="bottom-container">
+        <div class="bottom-container__board">
+          <p class="bottom-container__board__position">web-designer</p>
+          <div class="bottom-container__board__position__contact web-designer-container">
+            <p class="bottom-container__board__position__contact__name">mariana:&nbsp;</p>
+            <div class="bottom-container__board__position__contact__url">
               <a href="https://www.linkedin.com/in/aastashov/" class="custom-link">linkedin</a>
             </div>
             <p class="custom-link">&nbsp;|&nbsp;Behance</p>
           </div>
 
-          <p class="botton-container__board__position">frontend</p>
-          <div class="botton-container__board__position__contact">
-            <p class="botton-container__board__position__contact__name">sofia:&nbsp;</p>
-            <div class="botton-container__board__position__contact__url">
+          <p class="bottom-container__board__position">frontend</p>
+          <div class="bottom-container__board__position__contact">
+            <p class="bottom-container__board__position__contact__name">sofia:&nbsp;</p>
+            <div class="bottom-container__board__position__contact__url">
               <a href="https://www.linkedin.com/in/aastashov/" class="custom-link">linkedin</a>
             </div>
-            <p class="custom-link">&nbsp;|&nbsp;GitHub</p>
+            <div class="bottom-container__board__position__contact__url">
+              <a href="https://github.com/sofia-petrova0802" class="custom-link">
+                &nbsp;|&nbsp;GitHub</a
+              >
+            </div>
           </div>
 
-          <p class="botton-container__board__position backend-container">backend</p>
-          <div class="botton-container__board__position__contact">
-            <p class="botton-container__board__position__contact__name">daniil:&nbsp;</p>
-            <div class="botton-container__board__position__contact__url">
+          <p class="bottom-container__board__position backend-container">backend</p>
+          <div class="bottom-container__board__position__contact">
+            <p class="bottom-container__board__position__contact__name">daniil:&nbsp;</p>
+            <div class="bottom-container__board__position__contact__url">
               <a href="https://www.linkedin.com/in/aastashov/" class="custom-link">linkedin</a>
             </div>
-            <p class="custom-link">&nbsp;|&nbsp;GitHub</p>
+            <div class="bottom-container__board__position__contact__url">
+              <a href="https://github.com/neuroskip" class="custom-link">&nbsp;|&nbsp;GitHub</a>
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +112,7 @@ main {
   border: 1px solid white;
 }
 
-.botton-container {
+.bottom-container {
   display: grid;
   grid-template-areas:
     '. board .'
@@ -114,7 +120,7 @@ main {
   grid-template-columns: 2fr 4fr 2fr;
 }
 
-.botton-container__board {
+.bottom-container__board {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -124,29 +130,29 @@ main {
   backdrop-filter: blur(3px);
 }
 
-.botton-container__board__position {
+.bottom-container__board__position {
   color: white;
   font-size: clamp(0.9rem, 1.6vw, 2rem);
   margin-bottom: 1%;
 }
 
-.botton-container__board__position__contact__name {
+.bottom-container__board__position__contact__name {
   color: white;
 }
 
-.botton-container__board__position__contact {
+.bottom-container__board__position__contact {
   display: flex;
   align-items: center;
   font-size: clamp(0.8rem, 1.4vw, 1.8rem);
 }
 
 .custom-link {
-  color: rgba(20, 224, 209, 1);
+  color: var(--blue);
   text-decoration: none;
 }
 
 @media (max-width: 1280px) {
-  .botton-container {
+  .bottom-container {
     grid-template-columns: 1fr 3fr 1fr;
   }
 }
@@ -166,7 +172,7 @@ main {
     justify-content: center;
     align-items: center;
   }
-  .botton-container {
+  .bottom-container {
     grid-template-columns: 1fr 6fr 1fr;
   }
 }
@@ -175,19 +181,19 @@ main {
   .top-container__header {
     margin-top: 30%;
   }
-  .botton-container {
+  .bottom-container {
     grid-template-columns: 1fr 10fr 1fr;
   }
 
-  .botton-container__board {
+  .bottom-container__board {
     height: 190px;
     padding-top: 18px;
     padding-bottom: 9px;
 
-    .botton-container__board__position,
-    .botton-container__board__position__contact__name,
-    .botton-container__board__position__contact,
-    .botton-container__board__position__contact__url {
+    .bottom-container__board__position,
+    .bottom-container__board__position__contact__name,
+    .bottom-container__board__position__contact,
+    .bottom-container__board__position__contact__url {
       margin: 0.5px;
     }
 

@@ -45,11 +45,11 @@ export default {
 }
 
 .cell span.x {
-  color: rgba(255, 74, 88, 1);
+  color: var(--red);
 }
 
 .cell span.o {
-  color: rgba(20, 224, 209, 1);
+  color: var(--blue);
 }
 
 @media (max-width: 1500px) {
