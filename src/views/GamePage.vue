@@ -15,14 +15,14 @@
       <gameBoard class="back-layer__board" />
       <div class="buttons">
         <button @click="creating_privat_game" class="position">creating private game</button>
-        <button @click="selecting_mode_for_play_with_ai" class="position">
+        <!-- <button @click="selecting_mode_for_play_with_ai" class="position">
           selecting a mode for play with ai
         </button>
         <button @click="waiting_for_opponent" class="position">waiting for opponent</button>
         <button @click="opponent_disconnected" class="position">opponent disconnected</button>
         <button @click="to_take_revenge" class="position">to take revenge</button>
         <button @click="leave_game" class="position">leave game</button>
-        <button @click="player_left_game" class="position">player left game</button>
+        <button @click="player_left_game" class="position">player left game</button> -->
       </div>
     </div>
   </body>

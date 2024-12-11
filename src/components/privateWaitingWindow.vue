@@ -29,7 +29,10 @@ export default {
 </script>
 
 <style>
-p {
+.window__text,
+.window__code-to-join,
+.window__text,
+.window__link-to-join {
   margin: 0;
 }
 .window__text {
