@@ -8,6 +8,7 @@
         </div>
         <p class="top-container__header">ABOUT US</p>
       </div>
+      <!-- TODO: поправить ссылки -->
       <div class="bottom-container">
         <div class="bottom-container__board">
           <p class="bottom-container__board__position">web-designer</p>
