@@ -1,27 +1,34 @@
 <template>
   <div class="game-board">
-    <div v-for="(cell, index) in board" :key="index" class="cell" @click="makeMove(index)">
-      <span :class="{ x: cell === 'X', o: cell === 'O' }">{{ cell }}</span>
+    <div v-for="(cell, index) in appState.board" :key="index" class="box" @click="check(index)">
+      <span
+        :class="{
+          x: cell === 'X',
+          o: cell === 'O'
+        }"
+      >
+        {{ cell }}
+      </span>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      board: Array(9).fill(null),
-      currentPlayer: 'X'
-    }
-  },
-  methods: {
-    makeMove(index) {
-      if (this.board[index]) return
-      this.board[index] = this.currentPlayer
-      this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X'
-    }
-  }
+<script setup>
+import { emit, register } from '@/websocket'
+import appState from '@/state'
+
+function check(index) {
+  emit('game:turn', { player: { id: appState.userId }, cell: index })
 }
+
+register('game:turn', (payload) => {
+  console.log('Получено действие game:turn', payload)
+
+  appState.gameId = payload.game.id
+  appState.winner = payload.game.winner
+  appState.board = payload.game.board
+  appState.gameStatus = payload.game.status
+})
 </script>
 
 <style>
@@ -37,18 +44,18 @@ export default {
   font-size: clamp(5rem, 7vw, 7rem);
 }
 
-.cell {
+.box {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.cell span.x {
+.x {
   color: var(--red);
 }
 
-.cell span.o {
+.o {
   color: var(--blue);
 }
 

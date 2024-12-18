@@ -1,26 +1,57 @@
 <template>
   <div class="window">
     <!-- + state "it's a draw"(color: yellow), "you win!"(color: winner color), "you lose"(color: winner color) -->
-    <div class="window__status-header">CHOOSE GAME TYPE</div>
-    <button class="window__buttons window__buttons__take-revenge">take revenge</button>
-    <button class="window__buttons">play with ai</button>
-    <button class="window__buttons">public game</button>
-    <button class="window__buttons">privat game</button>
+    <div class="window__status-header" :class="statusColor">{{ statusHeader }}</div>
+    <!-- <button class="window__buttons window__buttons__take-revenge">take revenge</button> -->
+    <!-- <button class="window__buttons" @click="$emit('play_with_ai')">play with ai</button>
+    <button class="window__buttons" @click="$emit('public_game')">public game</button> -->
+    <button class="window__buttons" @click="$emit('privat_game')">privat game</button>
     <div class="window__join-box">
       <input
         class="window__join-box__input"
-        id="roomCode"
+        v-model="formData.roomCode"
         name="roomCode"
         type="text"
         placeholder="   your room code"
       />
-      <button class="window__join-box__button">join</button>
+      <button class="window__join-box__button" @click="$emit('join_game')">join</button>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import '@/styles/window.css'
+import appState from '@/state'
+import { watch, ref, computed } from 'vue'
+
+const props = defineProps({ modelValue: Object })
+
+const formData = ref({ ...props.modelValue })
+
+const emit = defineEmits(['update:modelValue', 'privat_game', 'join_game'])
+
+watch(formData, (newData) => emit('update:modelValue', newData), { deep: true })
+
+//----------
+
+const statusHeader = ref('CHOOSE GAME TYPE')
+
+if (appState.playerMark === appState.winner) {
+  statusHeader.value = 'YOU WIN!'
+} else if (appState.playerMark !== appState.winner) {
+  statusHeader.value = 'YOU LOSE'
+} else if (appState.winner === '-') {
+  statusHeader.value = "It's a draw"
+}
+
+const statusColor = computed(() => {
+  if (appState.playerMark === 'x' || appState.playerMark === 'X') {
+    return 'status-header_for-x'
+  } else if (appState.playerMark === 'o' || appState.playerMark === 'O') {
+    return 'status-header_for-o'
+  }
+  return ''
+})
 </script>
 
 <style>
@@ -37,6 +68,14 @@ import '@/styles/window.css'
   margin-bottom: 5px;
 }
 
+.status-header_for-x {
+  color: var(--red);
+}
+
+.status-header_for-o {
+  color: var(--blue);
+}
+
 .window__buttons {
   color: white;
   border: 1px solid transparent;
@@ -49,10 +88,9 @@ import '@/styles/window.css'
   border: 1px solid white;
 }
 
-.window__buttons__take-revenge {
-  /* Debug */
+/* .window__buttons__take-revenge {
   display: none;
-}
+} */
 
 .window__join-box {
   display: flex;

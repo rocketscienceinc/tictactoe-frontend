@@ -1,9 +1,15 @@
 <template>
   <body>
     <appHeader />
-    <div class="front-layer">
-      <menuWindow class="front-layer__window" v-if="isVisible" />
-      <privateWaitingWindow class="front-layer__window" v-if="isVisibleTwo" />
+    <div class="front-layer" v-if="appState.gameStatus !== 'ongoing'">
+      <menuWindow
+        class="front-layer__window"
+        v-if="appState.gameStatus === '' || appState.gameStatus === 'finished'"
+        @privat_game="privat_game()"
+        @join_game="join_game()"
+        v-model="formData"
+      />
+      <privateWaitingWindow class="front-layer__window" v-if="appState.gameStatus === 'waiting'" />
       <selectingMode class="front-layer__window" v-if="isVisibleThree" />
       <waitingForOpponent class="front-layer__window" v-if="isVisibleFour" />
       <opponentDisconnected class="front-layer__window" v-if="isVisibleFive" />
@@ -13,22 +19,17 @@
     </div>
     <div class="back-layer">
       <gameBoard class="back-layer__board" />
-      <div class="buttons">
-        <button @click="creating_privat_game" class="position">creating private game</button>
-        <!-- <button @click="selecting_mode_for_play_with_ai" class="position">
-          selecting a mode for play with ai
-        </button>
-        <button @click="waiting_for_opponent" class="position">waiting for opponent</button>
-        <button @click="opponent_disconnected" class="position">opponent disconnected</button>
-        <button @click="to_take_revenge" class="position">to take revenge</button>
-        <button @click="leave_game" class="position">leave game</button>
-        <button @click="player_left_game" class="position">player left game</button> -->
-      </div>
     </div>
   </body>
 </template>
-<script>
+
+<script setup>
 import '@/styles/window.css'
+
+import { ref, onMounted } from 'vue'
+import appState from '@/state'
+import { emit, register } from '@/websocket'
+
 import appHeader from '@/components/appHeader.vue'
 import gameBoard from '@/components/gameBoard.vue'
 import menuWindow from '@/components/menuWindow.vue'
@@ -40,62 +41,43 @@ import toTakeRevenge from '@/components/toTakeRevenge.vue'
 import leaveGame from '@/components/leaveGame.vue'
 import playerLeftGame from '@/components/playerLeftGame.vue'
 
-export default {
-  components: {
-    appHeader,
-    gameBoard,
-    menuWindow,
-    privateWaitingWindow,
-    selectingMode,
-    waitingForOpponent,
-    opponentDisconnected,
-    toTakeRevenge,
-    leaveGame,
-    playerLeftGame
-  },
-  data() {
-    return {
-      isVisible: true,
-      isVisibleTwo: false, // Начальное состояние видимости
-      isVisibleThree: false,
-      isVisibleFour: false,
-      isVisibleFive: false,
-      isVisibleSix: false,
-      isVisibleSeven: false,
-      isVisibleEight: false
-    }
-  },
-  methods: {
-    creating_privat_game() {
-      this.isVisible = false // Переключение состояния видимости
-      this.isVisibleTwo = true
-    },
-    selecting_mode_for_play_with_ai() {
-      this.isVisible = false
-      this.isVisibleThree = true
-    },
-    waiting_for_opponent() {
-      this.isVisible = false
-      this.isVisibleFour = true
-    },
-    opponent_disconnected() {
-      this.isVisible = false
-      this.isVisibleFive = true
-    },
-    to_take_revenge() {
-      this.isVisible = false
-      this.isVisibleSix = true
-    },
-    leave_game() {
-      this.isVisible = false
-      this.isVisibleSeven = true
-    },
-    player_left_game() {
-      this.isVisible = false
-      this.isVisibleEight = true
-    }
-  }
+const formData = ref({ roomCode: '' })
+// -----------------------------------
+const isVisibleThree = ref(false)
+const isVisibleFour = ref(false)
+const isVisibleFive = ref(false)
+const isVisibleSix = ref(false)
+const isVisibleSeven = ref(false)
+const isVisibleEight = ref(false)
+
+const privat_game = () => {
+  emit('game:new', { player: { id: appState.userId }, game: { type: 'private' } })
 }
+
+const join_game = () => {
+  emit('game:join', {
+    player: { id: appState.userId },
+    game: { id: formData.value.roomCode }
+  })
+}
+
+onMounted(() => {
+  register('game:new', (payload) => {
+    console.log('Получено действие game:new', payload)
+    appState.board = payload.game.board
+    appState.gameId = payload.game.id
+    appState.gameStatus = payload.game.status
+    appState.playerMark = payload.player.mark
+  })
+
+  register('game:join', (payload) => {
+    console.log('Получено действие game:join', payload)
+    appState.board = payload.game.board
+    appState.gameId = payload.game.id
+    appState.gameStatus = payload.game.status
+    appState.playerMark = payload.player.mark
+  })
+})
 </script>
 
 <style>

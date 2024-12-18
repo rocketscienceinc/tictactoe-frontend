@@ -1,7 +1,29 @@
 <template>
   <div class="app-background"><router-view></router-view></div>
 </template>
-<script></script>
+<script>
+import { emit, ws, register } from '@/websocket'
+import config from '@/config.js'
+import appState from './state'
+
+appState.userId = localStorage.getItem(config.cookieName)
+
+ws.addEventListener('open', () => {
+  emit('connect', { player: { id: appState.userId } })
+})
+
+export default {
+  mounted() {
+    register('connect', (payload) => {
+      console.log('Получили сообщения от action connect', payload)
+
+      localStorage.setItem(config.cookieName, payload.player.id)
+      appState.userId = payload.player.id
+      appState.playerMark = payload.mark
+    })
+  }
+}
+</script>
 <style>
 html,
 body {
