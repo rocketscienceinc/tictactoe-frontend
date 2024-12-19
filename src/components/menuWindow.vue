@@ -36,13 +36,13 @@ watch(formData, (newData) => emit('update:modelValue', newData), { deep: true })
 
 const statusHeader = ref('CHOOSE GAME TYPE')
 
-if (appState.playerMark !== '') {
+if (appState.playerMark) {
   if (appState.playerMark === appState.winner) {
     statusHeader.value = 'YOU WIN!'
   } else if (appState.playerMark !== appState.winner) {
     statusHeader.value = 'YOU LOSE'
   } else if (appState.winner === '-') {
-    statusHeader.value = "It's a draw"
+    statusHeader.value = "IT'S A DRAW"
   }
 }
 
