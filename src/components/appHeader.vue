@@ -9,7 +9,7 @@
     <!-- state red "x" or blue "o" -->
     <div class="header__game-mark">&nbsp;</div>
 
-    <div class="header__log-in-button">LOG IN</div>
+    <!-- <div class="header__log-in-button">LOG IN</div> -->
   </header>
 </template>
 
