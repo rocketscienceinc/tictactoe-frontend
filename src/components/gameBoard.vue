@@ -23,7 +23,10 @@ function check(index) {
 
 register('game:turn', (payload) => {
   console.log('Получено действие game:turn', payload)
-
+  if (payload.error) {
+    alert(payload.error)
+    return
+  }
   appState.gameId = payload.game.id
   appState.winner = payload.game.winner
   appState.board = payload.game.board

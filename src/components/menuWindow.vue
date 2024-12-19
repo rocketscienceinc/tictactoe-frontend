@@ -36,18 +36,20 @@ watch(formData, (newData) => emit('update:modelValue', newData), { deep: true })
 
 const statusHeader = ref('CHOOSE GAME TYPE')
 
-if (appState.playerMark === appState.winner) {
-  statusHeader.value = 'YOU WIN!'
-} else if (appState.playerMark !== appState.winner) {
-  statusHeader.value = 'YOU LOSE'
-} else if (appState.winner === '-') {
-  statusHeader.value = "It's a draw"
+if (appState.playerMark !== '') {
+  if (appState.playerMark === appState.winner) {
+    statusHeader.value = 'YOU WIN!'
+  } else if (appState.playerMark !== appState.winner) {
+    statusHeader.value = 'YOU LOSE'
+  } else if (appState.winner === '-') {
+    statusHeader.value = "It's a draw"
+  }
 }
 
 const statusColor = computed(() => {
-  if (appState.playerMark === 'x' || appState.playerMark === 'X') {
+  if (appState.playerMark.toUpperCase() === 'X') {
     return 'status-header_for-x'
-  } else if (appState.playerMark === 'o' || appState.playerMark === 'O') {
+  } else if (appState.playerMark.toUpperCase() === 'O') {
     return 'status-header_for-o'
   }
   return ''
