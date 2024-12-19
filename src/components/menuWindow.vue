@@ -47,9 +47,10 @@ if (appState.playerMark !== '') {
 }
 
 const statusColor = computed(() => {
-  if (appState.playerMark.toUpperCase() === 'X') {
+  const mark = appState.playerMark || ''
+  if (mark.toUpperCase() === 'X') {
     return 'status-header_for-x'
-  } else if (appState.playerMark.toUpperCase() === 'O') {
+  } else if (mark.toUpperCase() === 'O') {
     return 'status-header_for-o'
   }
   return ''

@@ -34,7 +34,7 @@ body {
 }
 
 .app-background {
-  background-image: url('assets/background.svg');
+  background-image: url('/assets/background.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
