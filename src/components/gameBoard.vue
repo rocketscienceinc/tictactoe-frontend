@@ -21,10 +21,12 @@ function check(index) {
   emit('game:turn', { player: { id: appState.userId }, cell: index })
 }
 
-//Функция-обработчик для действия/события 'game:turn:update'
 register('game:turn', (payload) => {
   console.log('Получено действие game:turn', payload)
-
+  if (payload.error) {
+    alert(payload.error)
+    return
+  }
   appState.gameId = payload.game.id
   appState.winner = payload.game.winner
   appState.board = payload.game.board
@@ -33,37 +35,58 @@ register('game:turn', (payload) => {
 </script>
 
 <style>
-@font-face {
-  font-family: 'HomeVideoFont';
-  src: url('/assets/fonts/home_video/HomeVideo.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .game-board {
   display: grid;
-  grid-template-columns: repeat(3, 150px);
-  grid-template-rows: repeat(3, 150px);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 5px;
+  width: 500px;
+  height: 500px;
   background-image: url('/assets/frame.svg');
+  background-size: cover;
+  font-size: clamp(5rem, 7vw, 7rem);
 }
 
 .box {
-  font-family: 'HomeVideoFont';
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 100px;
-  width: 150px;
-  height: 150px;
-  background-color: transparent;
-  border: transparent;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .x {
-  color: rgba(255, 74, 88, 1);
+  color: var(--red);
 }
 
 .o {
-  color: rgba(20, 224, 209, 1);
+  color: var(--blue);
+}
+
+@media (max-width: 1500px) {
+  .game-board {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (width <= 640px) {
+  .game-board {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 475px) {
+  .game-board {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-board {
+    width: 250px;
+    height: 250px;
+  }
 }
 </style>
