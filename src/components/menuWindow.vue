@@ -47,6 +47,9 @@ if (appState.playerMark) {
 }
 
 const statusColor = computed(() => {
+  if (appState.winner === '-') {
+    return 'status-header_for-draw'
+  }
   const mark = appState.playerMark || ''
   if (mark.toUpperCase() === 'X') {
     return 'status-header_for-x'
@@ -77,6 +80,10 @@ const statusColor = computed(() => {
 
 .status-header_for-o {
   color: var(--blue);
+}
+
+.status-header_for-draw {
+  color: var(--yellow);
 }
 
 .window__buttons {
