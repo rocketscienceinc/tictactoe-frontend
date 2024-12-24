@@ -19,7 +19,10 @@ export default {
 
       localStorage.setItem(config.cookieName, payload.player.id)
       appState.userId = payload.player.id
+
       appState.playerMark = payload.player.mark
+
+
 
       if (payload.game !== undefined) {
         appState.board = payload.game.board
