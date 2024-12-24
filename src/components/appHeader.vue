@@ -6,14 +6,26 @@
       <div class="header__title__toe">TOE</div>
     </div>
 
-    <!-- state red "x" or blue "o" -->
-    <div class="header__game-mark">&nbsp;</div>
+    <div class="header__game-mark" :class="markColor">{{ appState.playerMark }}</div>
 
-    <!-- <div class="header__log-in-button">LOG IN</div> -->
+    <div class="header__log-in-button">log in</div>
   </header>
 </template>
 
-<script></script>
+<script setup>
+import appState from '@/state'
+import { computed } from 'vue'
+
+const markColor = computed(() => {
+  const mark = appState.playerMark || ''
+  if (mark.toUpperCase() === 'X') {
+    return 'header__game-mark__x'
+  } else if (mark.toUpperCase() === 'O') {
+    return 'header__game-mark__o'
+  }
+  return ''
+})
+</script>
 
 <style>
 .header {
@@ -62,6 +74,11 @@
     text-shadow:
       0 0 20px rgba(20, 224, 209, 0.8),
       -2px 2px 0 rgba(4, 154, 143, 1);
+  }
+
+  .header__game-mark {
+    font-size: clamp(1.5rem, 2.8vw, 3rem);
+    margin-right: 2%;
   }
 
   .header__game-mark__x {
