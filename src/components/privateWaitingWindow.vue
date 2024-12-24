@@ -3,9 +3,8 @@
     <p class="window__text">Code to join this room:</p>
     <p class="window__code-to-join">{{ appState.gameId }}</p>
     <p class="window__text">or use link:</p>
-    <p class="window__link-to-join">https://tictactoe.kg/join/{{ appState.gameId }}</p>
-    <!-- TODO: Написать script, который сохраняет ссылку и изминения стилей кнопки после нажатия (на какое-то время) -->
-    <button class="window__copy-link">copy link</button>
+    <p class="window__link-to-join">{{ generateSiteLink(appState.gameId) }}</p>
+    <button class="window__copy-link" @click="copyLink">{{ ButtonText }}</button>
     <button class="window__make-qr">make qr</button>
   </div>
   <!-- <p>waiting for your opponent...</p> -->
@@ -14,20 +13,28 @@
 <script setup>
 import '@/styles/window.css'
 import appState from '@/state'
+import { ref } from 'vue'
 
-// export default {
-//   inheritAttrs: false, // Отключение автоматического наследования атрибутов
-//   data() {
-//     return {
-//       buttonText: 'copy link'
-//     }
-//   },
-//   methods: {
-//     changeText() {
-//       this.buttonText = 'link copied'
-//     }
-//   }
-// }
+const ButtonText = ref('copy link')
+
+const generateSiteLink = (gameId) => {
+  return `${window.location.origin}/join/${gameId}`
+}
+
+const copyLink = () => {
+  let link = generateSiteLink(appState.gameId)
+  navigator.clipboard
+    .writeText(link)
+    .then(() => {
+      ButtonText.value = 'link copied'
+      setTimeout(() => {
+        ButtonText.value = 'copy link'
+      }, 2000)
+    })
+    .catch(() => {
+      console.error('Failed to copy')
+    })
+}
 </script>
 
 <style>

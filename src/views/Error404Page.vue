@@ -18,9 +18,6 @@
 </template>
 
 <script>
-// TODO: Написать скрипт который будет высвечивать это страницу если пользователь ввёл неправильный url/пытается
-// перейти на несуществующую страницу на сайте
-// + сделать лого кнопкой, с помощью которой можно перейти на сраницу Welcome
 import appHeader from '@/components/appHeader.vue'
 export default {
   components: {
@@ -52,6 +49,15 @@ export default {
 .error404-box__text {
   text-align: center;
   font-size: clamp(1.1rem, 1.1vw, 2rem);
+}
+
+.button-box__about-us-button {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(1.2rem, 2vw, 2.5rem);
+  border: 1px solid transparent;
+  background-color: transparent;
+  margin: 2% 2%;
+  padding: 7px 10px;
 }
 
 @media (max-width: 480px) {

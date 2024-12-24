@@ -62,6 +62,8 @@ const join_game = () => {
   formData.value.roomCode = ''
 }
 
+// Заюзать beforeMount для реализации перехода в комнату по сгинеренной ссылке для входа в комнату с игрой
+
 onMounted(() => {
   register('game:new', (payload) => {
     console.log('Получено действие game:new', payload)

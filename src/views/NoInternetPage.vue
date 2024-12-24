@@ -20,8 +20,6 @@
 </template>
 
 <script>
-// TODO: Реализовать скрипт который в случае дисконекта пользователя будет отображать эту страницу
-// + сделать лого кнопкой, с помощью которой можно перейти на сраницу Welcome
 import appHeader from '@/components/appHeader.vue'
 export default {
   components: {

@@ -19,15 +19,16 @@ export default {
 
       localStorage.setItem(config.cookieName, payload.player.id)
       appState.userId = payload.player.id
-      appState.playerMark = payload.mark
+
+      appState.playerMark = payload.player.mark
+
+
 
       if (payload.game !== undefined) {
         appState.board = payload.game.board
         appState.gameId = payload.game.id
         appState.gameStatus = payload.game.status
         this.$router.push('/game')
-      } else {
-        this.$router.push('/')
       }
     })
   }
