@@ -59,6 +59,7 @@ const join_game = () => {
     player: { id: appState.userId },
     game: { id: formData.value.roomCode }
   })
+  formData.value.roomCode = ''
 }
 
 onMounted(() => {
