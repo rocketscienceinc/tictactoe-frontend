@@ -3,7 +3,7 @@
   grid-template-areas:
     '. . .'
     '. menu .'
-    '. . .';
+    '. text .';
   align-items: center;
   justify-items: center;
   position: fixed;

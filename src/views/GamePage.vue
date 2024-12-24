@@ -10,6 +10,9 @@
         v-model="formData"
       />
       <privateWaitingWindow class="front-layer__window" v-if="appState.gameStatus === 'waiting'" />
+      <div class="privateWaitingWindow__waiting-text" v-if="appState.gameStatus === 'waiting'">
+        waiting for your opponent...
+      </div>
       <selectingMode class="front-layer__window" v-if="isVisibleThree" />
       <waitingForOpponent class="front-layer__window" v-if="isVisibleFour" />
       <opponentDisconnected class="front-layer__window" v-if="isVisibleFive" />
@@ -18,6 +21,18 @@
       <playerLeftGame class="front-layer__window" v-if="isVisibleEight" />
     </div>
     <div class="back-layer">
+      <div
+        class="back-layer__game-status-text"
+        v-if="appState.gameStatus === 'ongoing' && appState.playerTurn === appState.playerMark"
+      >
+        your turn
+      </div>
+      <div
+        class="back-layer__game-status-text"
+        v-if="appState.gameStatus === 'ongoing' && appState.playerTurn !== appState.playerMark"
+      >
+        waiting
+      </div>
       <gameBoard class="back-layer__board" />
     </div>
   </body>
@@ -42,6 +57,7 @@ import leaveGame from '@/components/leaveGame.vue'
 import playerLeftGame from '@/components/playerLeftGame.vue'
 
 const formData = ref({ roomCode: '' })
+
 // -----------------------------------
 const isVisibleThree = ref(false)
 const isVisibleFour = ref(false)
@@ -62,8 +78,6 @@ const join_game = () => {
   formData.value.roomCode = ''
 }
 
-// Заюзать beforeMount для реализации перехода в комнату по сгинеренной ссылке для входа в комнату с игрой
-
 onMounted(() => {
   register('game:new', (payload) => {
     console.log('Получено действие game:new', payload)
@@ -71,6 +85,7 @@ onMounted(() => {
     appState.gameId = payload.game.id
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
+    appState.playerTurn = payload.game.player_turn
   })
 
   register('game:join', (payload) => {
@@ -79,6 +94,7 @@ onMounted(() => {
     appState.gameId = payload.game.id
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
+    appState.playerTurn = payload.game.player_turn
   })
 })
 </script>
@@ -87,6 +103,12 @@ onMounted(() => {
 .position {
   position: relative;
   z-index: 3;
+}
+
+.privateWaitingWindow__waiting-text {
+  color: white;
+  font-size: clamp(0.8rem, 2vw, 2rem);
+  grid-area: text;
 }
 
 .back-layer {
@@ -101,6 +123,12 @@ onMounted(() => {
 
 .back-layer__board {
   grid-area: board;
+}
+
+.back-layer__game-status-text {
+  grid-area: game-status;
+  color: white;
+  font-size: clamp(0.8rem, 2vw, 2.5rem);
 }
 
 .buttons {
