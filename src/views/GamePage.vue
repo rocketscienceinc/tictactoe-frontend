@@ -59,7 +59,10 @@ const join_game = () => {
     player: { id: appState.userId },
     game: { id: formData.value.roomCode }
   })
+  formData.value.roomCode = ''
 }
+
+// Заюзать beforeMount для реализации перехода в комнату по сгинеренной ссылке для входа в комнату с игрой
 
 onMounted(() => {
   register('game:new', (payload) => {
