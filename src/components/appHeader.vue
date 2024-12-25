@@ -5,10 +5,7 @@
       <div class="header__title__tac">TAC</div>
       <div class="header__title__toe">TOE</div>
     </div>
-
     <div class="header__game-mark" :class="markColor">{{ appState.playerMark }}</div>
-
-    <div class="header__log-in-button">log in</div>
   </header>
 </template>
 

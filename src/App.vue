@@ -22,12 +22,11 @@ export default {
 
       appState.playerMark = payload.player.mark
 
-
-
       if (payload.game !== undefined) {
         appState.board = payload.game.board
         appState.gameId = payload.game.id
         appState.gameStatus = payload.game.status
+        appState.playerTurn = payload.game.player_turn
         this.$router.push('/game')
       }
     })

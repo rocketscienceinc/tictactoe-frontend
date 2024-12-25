@@ -7,7 +7,6 @@
     <button class="window__copy-link" @click="copyLink">{{ ButtonText }}</button>
     <button class="window__make-qr">make qr</button>
   </div>
-  <!-- <p>waiting for your opponent...</p> -->
 </template>
 
 <script setup>
