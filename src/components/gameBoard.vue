@@ -31,6 +31,7 @@ register('game:turn', (payload) => {
   appState.winner = payload.game.winner
   appState.board = payload.game.board
   appState.gameStatus = payload.game.status
+  appState.playerTurn = payload.game.player_turn
 })
 </script>
 

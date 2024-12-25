@@ -5,15 +5,14 @@
       <div class="header__title__tac">TAC</div>
       <div class="header__title__toe">TOE</div>
     </div>
-
-    <!-- state red "x" or blue "o" -->
-    <div class="header__game-mark">&nbsp;</div>
-
-    <!-- <div class="header__log-in-button">LOG IN</div> -->
+    <!-- Debag -->
+    <div class="header__game-mark">{{ appState.playerMark }}</div>
   </header>
 </template>
 
-<script></script>
+<script setup>
+import appState from '@/state'
+</script>
 
 <style>
 .header {
