@@ -68,8 +68,7 @@ onMounted(() => {
   }
 
   if (code !== null) {
-    const code_input = document.getElementsByClassName('window__join-box__input')[0]
-    code_input.value = code
+    formData.value.roomCode = code
   }
 })
 </script>

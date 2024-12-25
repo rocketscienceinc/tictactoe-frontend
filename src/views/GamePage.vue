@@ -78,6 +78,7 @@ const join_game = () => {
     game: { id: formData.value.roomCode }
   })
   formData.value.roomCode = ''
+  window.history.replaceState(null, '', window.location.pathname)
 }
 
 onMounted(() => {
@@ -101,6 +102,9 @@ onMounted(() => {
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
     appState.playerTurn = payload.game.player_turn
+    // if (window.location.search != '') {
+    //   window.location.search = ''
+    // }
   })
 })
 </script>
