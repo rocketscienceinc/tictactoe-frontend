@@ -6,6 +6,7 @@
       <div class="header__title__toe">TOE</div>
     </div>
     <div class="header__game-mark" :class="markColor">{{ appState.playerMark }}</div>
+    <div class="header__log-in-button">log in</div>
   </header>
 </template>
 
@@ -90,6 +91,7 @@ const markColor = computed(() => {
     margin-right: 2%;
     color: white;
     font-size: clamp(1.5rem, 2.2vw, 3rem);
+    visibility: hidden;
   }
 
   .header__log-in-button:hover {

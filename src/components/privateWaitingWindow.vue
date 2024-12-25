@@ -5,7 +5,7 @@
     <p class="window__text">or use link:</p>
     <p class="window__link-to-join">{{ generateSiteLink(appState.gameId) }}</p>
     <button class="window__copy-link" @click="copyLink">{{ ButtonText }}</button>
-    <button class="window__make-qr">make qr</button>
+    <button class="window__make-qr" @click="$router.push('/qr')">make qr</button>
   </div>
 </template>
 

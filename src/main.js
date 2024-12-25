@@ -7,6 +7,7 @@ import NoInternetPage from '@/views/NoInternetPage.vue'
 import Error404Page from '@/views/Error404Page.vue'
 import GamePage from '@/views/GamePage.vue'
 import JoinPage from '@/views/JoinPage.vue'
+import QrPage from './views/QrPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,6 +17,7 @@ const router = createRouter({
     { path: '/no-internet', name: 'NoInternetPage', component: NoInternetPage },
     { path: '/:pathMatch(.*)*', name: 'Error404Page', component: Error404Page },
     { path: '/game', name: 'GamePage', component: GamePage },
+    { path: '/qr', name: 'QrPage', component: QrPage },
     { path: '/join/:code', name: 'JoinPage', component: JoinPage }
   ]
 })

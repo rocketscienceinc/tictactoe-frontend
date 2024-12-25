@@ -12,6 +12,9 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "qrcode": "^1.5.4",
+    "qrcode.vue": "^3.6.0",
+    "qrious": "^4.0.2",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
