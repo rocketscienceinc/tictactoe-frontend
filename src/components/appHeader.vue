@@ -5,13 +5,23 @@
       <div class="header__title__tac">TAC</div>
       <div class="header__title__toe">TOE</div>
     </div>
-    <!-- Debag -->
-    <div class="header__game-mark">{{ appState.playerMark }}</div>
+    <div class="header__game-mark" :class="markColor">{{ appState.playerMark }}</div>
   </header>
 </template>
 
 <script setup>
 import appState from '@/state'
+import { computed } from 'vue'
+
+const markColor = computed(() => {
+  const mark = appState.playerMark || ''
+  if (mark.toUpperCase() === 'X') {
+    return 'header__game-mark__x'
+  } else if (mark.toUpperCase() === 'O') {
+    return 'header__game-mark__o'
+  }
+  return ''
+})
 </script>
 
 <style>
@@ -61,6 +71,11 @@ import appState from '@/state'
     text-shadow:
       0 0 20px rgba(20, 224, 209, 0.8),
       -2px 2px 0 rgba(4, 154, 143, 1);
+  }
+
+  .header__game-mark {
+    font-size: clamp(1.5rem, 2.8vw, 3rem);
+    margin-right: 2%;
   }
 
   .header__game-mark__x {
