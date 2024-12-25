@@ -9,6 +9,8 @@ import GamePage from '@/views/GamePage.vue'
 import JoinPage from '@/views/JoinPage.vue'
 import QrPage from './views/QrPage.vue'
 
+import VueQrcode from '@chenfengyuan/vue-qrcode'
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -23,5 +25,6 @@ const router = createRouter({
 })
 
 const app = createApp(App)
+app.component(VueQrcode.name, VueQrcode)
 app.use(router)
 app.mount('#app')
