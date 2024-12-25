@@ -3,7 +3,6 @@ import { useRoute, useRouter } from 'vue-router'
 import appState from '@/state'
 import { emit, register, ws } from '@/websocket'
 import { onMounted } from 'vue'
-import config from '@/config'
 
 const route = useRoute()
 const router = useRouter()
@@ -19,7 +18,6 @@ onMounted(() => {
   register('connect', (payload) => {
     console.log('Получили сообщения от action connect', payload)
 
-    localStorage.setItem(config.cookieName, payload.player.id)
     appState.userId = payload.player.id
     appState.playerMark = payload.player.mark
 
