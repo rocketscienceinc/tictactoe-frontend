@@ -76,7 +76,7 @@ const markColor = computed(() => {
 
   .header__game-mark {
     font-size: clamp(1.5rem, 2.8vw, 3rem);
-    margin-right: 2%;
+    margin-right: 4%;
   }
 
   .header__game-mark__x {
