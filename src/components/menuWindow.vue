@@ -23,6 +23,7 @@
 import '@/styles/window.css'
 import appState from '@/state'
 import { watch, ref, computed } from 'vue'
+import { onMounted } from 'vue'
 
 const props = defineProps({ modelValue: Object })
 
@@ -57,6 +58,19 @@ const statusColor = computed(() => {
     return 'status-header_for-o'
   }
   return ''
+})
+
+onMounted(() => {
+  const url_params = window.location.search
+  let code = null
+  if (url_params.includes('code')) {
+    code = url_params.split('=')[1]
+  }
+
+  if (code !== null) {
+    const code_input = document.getElementsByClassName('window__join-box__input')[0]
+    code_input.value = code
+  }
 })
 </script>
 
