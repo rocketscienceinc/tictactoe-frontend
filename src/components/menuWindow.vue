@@ -3,9 +3,9 @@
     <!-- + state "it's a draw"(color: yellow), "you win!"(color: winner color), "you lose"(color: winner color) -->
     <div class="window__status-header" :class="statusColor">{{ statusHeader }}</div>
     <!-- <button class="window__buttons window__buttons__take-revenge">take revenge</button> -->
-    <!-- <button class="window__buttons" @click="$emit('play_with_ai')">play with ai</button>
-    <button class="window__buttons" @click="$emit('public_game')">public game</button> -->
-    <button class="window__buttons" @click="$emit('privat_game')">privat game</button>
+    <!-- <button class="window__buttons" @click="$emit('play_with_ai')">play with ai</button> -->
+    <button class="window__buttons" @click="$emit('public_game')">public game</button>
+    <button class="window__buttons" @click="$emit('privat_game')">private game</button>
     <div class="window__join-box">
       <input
         class="window__join-box__input"
@@ -29,7 +29,7 @@ const props = defineProps({ modelValue: Object })
 
 const formData = ref({ ...props.modelValue })
 
-const emit = defineEmits(['update:modelValue', 'privat_game', 'join_game'])
+const emit = defineEmits(['update:modelValue', 'privat_game', 'join_game', 'public_game'])
 
 watch(formData, (newData) => emit('update:modelValue', newData), { deep: true })
 
