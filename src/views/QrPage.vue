@@ -1,28 +1,44 @@
 <template>
   <body>
     <appHeader />
-    <div class="qr-main">
-      <qrcode-vue :value="value" :size="size" level="H" render-as="svg" />
-      <button @click="$router.push('/game')">back to room code</button>
+    <div class="qr-code-main">
+      <div>
+        <vue-qrcode :value="url" :options="{ width: 300 }" :level="'H'" />
+      </div>
+      <button class="qr-code-main__back-button" @click="$router.push('/game')">
+        &lt;-back to room code
+      </button>
     </div>
   </body>
 </template>
 
 <script setup>
 import appHeader from '@/components/appHeader.vue'
-import { createApp } from 'vue'
-import QrcodeVue from 'qrcode.vue'
+import appState from '@/state'
+import VueQrcode from '@chenfengyuan/vue-qrcode'
 
-createApp({
-  data: function () {
-    return {
-      value: 'https://example.com'
-    }
-  },
-  template: '<qrcode-vue :value="value"></qrcode-vue>',
-  components: {
-    QrcodeVue
-  }
-}).mount('#root')
+const gameId = appState.gameId
+const url = `${window.location.origin}/join/${gameId}`
 </script>
-<style></style>
+
+<style scoped>
+.qr-code-main {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+}
+
+.qr-code-main__back-button {
+  font-size: clamp(0.8rem, 2vw, 2rem);
+  color: white;
+  border: 1px solid transparent;
+  background-color: transparent;
+  padding: 7px 10px;
+  margin-top: 3%;
+}
+
+.qr-code-main__back-button:hover {
+  border: 1px solid white;
+}
+</style>

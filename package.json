@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^2.0.0",
     "qrcode": "^1.5.4",
     "qrcode.vue": "^3.6.0",
     "qrious": "^4.0.2",
