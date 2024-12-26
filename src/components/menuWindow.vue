@@ -1,6 +1,5 @@
 <template>
   <div class="window">
-    <!-- + state "it's a draw"(color: yellow), "you win!"(color: winner color), "you lose"(color: winner color) -->
     <div class="window__status-header" :class="statusColor">{{ statusHeader }}</div>
     <!-- <button class="window__buttons window__buttons__take-revenge">take revenge</button> -->
     <!-- <button class="window__buttons" @click="$emit('play_with_ai')">play with ai</button> -->
