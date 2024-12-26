@@ -44,6 +44,7 @@ import '@/styles/window.css'
 import { ref, onMounted } from 'vue'
 import appState from '@/state'
 import { emit, register } from '@/websocket'
+import { useRouter } from 'vue-router'
 
 import appHeader from '@/components/appHeader.vue'
 import gameBoard from '@/components/gameBoard.vue'
@@ -57,6 +58,7 @@ import leaveGame from '@/components/leaveGame.vue'
 import playerLeftGame from '@/components/playerLeftGame.vue'
 
 const formData = ref({ roomCode: '' })
+const router = useRouter()
 
 // -----------------------------------
 const isVisibleThree = ref(false)
@@ -90,6 +92,10 @@ onMounted(() => {
 
   register('game:join', (payload) => {
     console.log('Получено действие game:join', payload)
+    if (payload.error) {
+      router.push({ name: 'Error404Page' })
+      return
+    }
     appState.board = payload.game.board
     appState.gameId = payload.game.id
     appState.gameStatus = payload.game.status

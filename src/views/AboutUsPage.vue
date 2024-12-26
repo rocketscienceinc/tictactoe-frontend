@@ -8,7 +8,6 @@
         </div>
         <p class="top-container__header">ABOUT US</p>
       </div>
-      <!-- TODO: поправить ссылки -->
       <div class="bottom-container">
         <div class="bottom-container__board">
           <p class="bottom-container__board__position">web-designer</p>
@@ -24,7 +23,9 @@
           <div class="bottom-container__board__position__contact">
             <p class="bottom-container__board__position__contact__name">sofia:&nbsp;</p>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://www.linkedin.com/in/aastashov/" class="custom-link">linkedin</a>
+              <a href="https://www.linkedin.com/in/sofia-petrova-3867352a4/" class="custom-link"
+                >linkedin</a
+              >
             </div>
             <div class="bottom-container__board__position__contact__url">
               <a href="https://github.com/sofia-petrova0802" class="custom-link">

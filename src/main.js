@@ -17,10 +17,10 @@ const router = createRouter({
     { path: '/', name: 'WelcomePage', component: WelcomePage },
     { path: '/about-us', name: 'AboutUsPage', component: AboutUsPage },
     { path: '/no-internet', name: 'NoInternetPage', component: NoInternetPage },
-    { path: '/:pathMatch(.*)*', name: 'Error404Page', component: Error404Page },
     { path: '/game', name: 'GamePage', component: GamePage },
     { path: '/qr', name: 'QrPage', component: QrPage },
-    { path: '/join/:code', name: 'JoinPage', component: JoinPage }
+    { path: '/join/:code', name: 'JoinPage', component: JoinPage },
+    { path: '/:pathMatch(.*)*', name: 'Error404Page', component: Error404Page }
   ]
 })
 
