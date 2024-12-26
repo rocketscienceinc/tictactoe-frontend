@@ -1,6 +1,5 @@
 <template>
   <div class="window">
-    <!-- TODO: Сделать плавную/интересную анимацию перехода текста -->
     <div class="window__changing-text">{{ changingText }}</div>
   </div>
 </template>

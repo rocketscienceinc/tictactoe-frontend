@@ -8,7 +8,8 @@ const appState = reactive({
   gameStatus: '',
   playerMark: '',
   winner: '',
-  playerTurn: ''
+  playerTurn: '',
+  gameType: ''
 })
 
 export default appState
