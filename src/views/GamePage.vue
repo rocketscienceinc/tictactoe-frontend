@@ -1,7 +1,10 @@
 <template>
   <body>
-    <appHeader />
-    <div class="front-layer" v-if="appState.gameStatus !== 'ongoing'">
+    <appHeader @go_to_home_page="go_to_home_page()" />
+    <div
+      class="front-layer"
+      v-if="appState.gameStatus !== 'ongoing' && appState.gameStatus !== 'leave'"
+    >
       <menuWindow
         class="front-layer__window"
         v-if="appState.gameStatus === '' || appState.gameStatus === 'finished'"
@@ -18,20 +21,33 @@
         class="front-layer__window"
         v-if="appState.gameType === 'public' && appState.gameStatus === 'waiting'"
       />
+
       <div
         class="privateWaitingWindow__waiting-text"
         v-if="appState.gameType === 'private' && appState.gameStatus === 'waiting'"
       >
         waiting for your opponent...
       </div>
+      <!-- 
+      <selectingMode class="front-layer__window"  />
+      <opponentDisconnected class="front-layer__window"  />
+      <toTakeRevenge class="front-layer__window" /> -->
+    </div>
 
-      <selectingMode class="front-layer__window" v-if="isVisibleThree" />
-      <opponentDisconnected class="front-layer__window" v-if="isVisibleFive" />
-      <toTakeRevenge class="front-layer__window" v-if="isVisibleSix" />
-      <leaveGame class="front-layer__window" v-if="isVisibleSeven" />
-      <playerLeftGame class="front-layer__window" v-if="isVisibleEight" />
+    <div class="middle-layer_two" v-if="appState.gameStatus === 'leave'">
+      <playerLeftGame class="playerLeft_window" />
+    </div>
+
+    <div class="middle-layer" v-if="visibilityLeaveGame">
+      <leaveGame
+        class="leave-game_window"
+        v-if="visibilityLeaveGame"
+        @continue_game="continue_game()"
+        @leave_game="leave_game()"
+      />
     </div>
     <div class="back-layer">
+      <div class="back-layer__empty-game-status">это тут нужно</div>
       <div
         class="back-layer__game-status-text"
         v-if="appState.gameStatus === 'ongoing' && appState.playerTurn === appState.playerMark"
@@ -44,6 +60,7 @@
       >
         waiting
       </div>
+
       <gameBoard class="back-layer__board" />
       <div
         class="back-layer__internet-status_offline"
@@ -76,21 +93,30 @@ import menuWindow from '@/components/menuWindow.vue'
 import privateWaitingWindow from '@/components/privateWaitingWindow.vue'
 import publicWaitingForOpponent from '@/components/publicWaitingForOpponent.vue'
 
-import selectingMode from '@/components/selectingMode.vue'
-import opponentDisconnected from '@/components/opponentDisconnected.vue'
-import toTakeRevenge from '@/components/toTakeRevenge.vue'
+// import selectingMode from '@/components/selectingMode.vue'
+// import opponentDisconnected from '@/components/opponentDisconnected.vue'
+// import toTakeRevenge from '@/components/toTakeRevenge.vue'
 import leaveGame from '@/components/leaveGame.vue'
 import playerLeftGame from '@/components/playerLeftGame.vue'
 
 const formData = ref({ roomCode: '' })
 const router = useRouter()
+const visibilityLeaveGame = ref(false)
 
-// -----------------------------------
-const isVisibleThree = ref(false)
-const isVisibleFive = ref(false)
-const isVisibleSix = ref(false)
-const isVisibleSeven = ref(false)
-const isVisibleEight = ref(false)
+const go_to_home_page = () => {
+  if (appState.gameStatus === 'ongoing') {
+    visibilityLeaveGame.value = true
+  } else {
+    router.push('/')
+  }
+}
+
+const leave_game = () => {
+  emit('game:leave', { player: { id: appState.userId } })
+  visibilityLeaveGame.value = false
+  appState.playerMark = ''
+  window.location.reload()
+}
 
 const privat_game = () => {
   emit('game:new', { player: { id: appState.userId }, game: { type: 'private' } })
@@ -112,6 +138,15 @@ const join_game = () => {
 }
 
 onMounted(() => {
+  register('game:leave', (payload) => {
+    console.log('Получено действие game:leave', payload)
+    appState.board = payload.game.board
+    appState.gameId = payload.game.id
+    appState.gameStatus = payload.game.status
+    appState.playerMark = payload.player.mark
+    appState.playerTurn = payload.game.player_turn
+  })
+
   register('game:new', (payload) => {
     console.log('Получено действие game:new', payload)
     appState.board = payload.game.board
@@ -132,11 +167,13 @@ onMounted(() => {
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
     appState.playerTurn = payload.game.player_turn
-    // if (window.location.search != '') {
-    //   window.location.search = ''
-    // }
+    appState.playerMark = payload.player.mark
   })
 })
+
+const continue_game = () => {
+  visibilityLeaveGame.value = false
+}
 </script>
 
 <style>
@@ -149,6 +186,26 @@ onMounted(() => {
   color: white;
   font-size: clamp(0.8rem, 2vw, 2rem);
   grid-area: text;
+}
+
+.middle-layer,
+.middle-layer_two {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-areas:
+    '. . .'
+    '. window .'
+    '. . .';
+  grid-template-rows: 4fr 6fr 3fr;
+}
+
+.leave-game_window,
+.playerLeft_window {
+  grid-area: window;
 }
 
 .back-layer {
@@ -176,7 +233,8 @@ onMounted(() => {
   color: var(--blue);
 }
 
-.back-layer__empty {
+.back-layer__empty,
+.back-layer__empty-game-status {
   visibility: hidden;
 }
 
@@ -184,7 +242,8 @@ onMounted(() => {
   grid-area: board;
 }
 
-.back-layer__game-status-text {
+.back-layer__game-status-text,
+.back-layer__empty-game-status {
   grid-area: game-status;
   color: white;
   font-size: clamp(0.8rem, 2vw, 2.5rem);

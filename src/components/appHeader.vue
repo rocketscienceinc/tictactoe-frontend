@@ -1,9 +1,11 @@
 <template>
   <header class="header">
     <div class="header__title">
-      <div class="header__title__tic">TIC</div>
-      <div class="header__title__tac">TAC</div>
-      <div class="header__title__toe">TOE</div>
+      <button class="header__title__button" @click="$emit('go_to_home_page')">
+        <div class="header__title__tic">TIC</div>
+        <div class="header__title__tac">TAC</div>
+        <div class="header__title__toe">TOE</div>
+      </button>
     </div>
     <div class="header__game-mark" :class="markColor">{{ appState.playerMark }}</div>
     <div class="header__log-in-button">log in</div>
@@ -74,9 +76,15 @@ const markColor = computed(() => {
       -2px 2px 0 rgba(4, 154, 143, 1);
   }
 
+  .header__title__button {
+    display: flex;
+    border: 1px solid transparent;
+    background-color: transparent;
+  }
+
   .header__game-mark {
     font-size: clamp(1.5rem, 2.8vw, 3rem);
-    margin-right: 4%;
+    margin-right: 5%;
   }
 
   .header__game-mark__x {
@@ -92,11 +100,6 @@ const markColor = computed(() => {
     color: white;
     font-size: clamp(1.5rem, 2.2vw, 3rem);
     visibility: hidden;
-  }
-
-  .header__log-in-button:hover {
-    /* Debug */
-    color: rgb(255, 0, 0);
   }
 }
 </style>

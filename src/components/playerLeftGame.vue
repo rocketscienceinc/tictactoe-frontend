@@ -4,12 +4,18 @@
       Sorry the player has<br />
       left the game
     </p>
-    <button class="window__bottom-leave-game-b">leave game</button>
+    <button class="window__bottom-leave-game-b" @click="leave_b">leave game</button>
   </div>
 </template>
 
-<script>
+<script setup>
 import '@/styles/window.css'
+import appState from '@/state'
+
+function leave_b() {
+  appState.playerMark = ''
+  window.location.reload()
+}
 </script>
 
 <style>
