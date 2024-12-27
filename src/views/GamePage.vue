@@ -109,6 +109,14 @@
       >
         internet connected
       </div>
+
+      <div class="back-layer__ws-status_closed" v-if="appState.wsConnection === 'closed'">
+        No connection to server
+      </div>
+
+      <div class="back-layer__ws-status_open" v-if="appState.wsConnection === 'open'">
+        Connection to server is established
+      </div>
     </div>
   </body>
 </template>
@@ -286,16 +294,20 @@ const continue_game = () => {
 
 .back-layer__internet-status_offline,
 .back-layer__internet-status_established,
-.back-layer__empty {
+.back-layer__empty,
+.back-layer__ws-status_closed,
+.back-layer__ws-status_open {
   grid-area: buttons;
   font-size: clamp(0.8rem, 1.7vw, 2rem);
 }
 
-.back-layer__internet-status_offline {
+.back-layer__internet-status_offline,
+.back-layer__ws-status_closed {
   color: var(--red);
 }
 
-.back-layer__internet-status_established {
+.back-layer__internet-status_established,
+.back-layer__ws-status_open {
   color: var(--blue);
 }
 

@@ -9,6 +9,10 @@ function connect() {
   ws = new WebSocket(`${config.apiUrl}/ws`)
   ws.addEventListener('open', () => {
     console.log('WebSocket соединение установлено')
+    appState.wsConnection = 'open'
+    setTimeout(() => {
+      appState.wsConnection = ''
+    }, 5000)
     if (reconnectIntervalId) {
       clearInterval(reconnectIntervalId)
       reconnectIntervalId = undefined
@@ -17,6 +21,7 @@ function connect() {
   })
   ws.addEventListener('close', () => {
     console.log('WebSocket соединение  закрыто')
+    appState.wsConnection = 'closed'
     if (!reconnectIntervalId) {
       reconnectIntervalId = setInterval(() => {
         connect()

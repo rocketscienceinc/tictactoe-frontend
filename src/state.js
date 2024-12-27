@@ -10,7 +10,8 @@ const appState = reactive({
   winner: '',
   playerTurn: '',
   gameType: '',
-  connectionStatus: ''
+  connectionStatus: '',
+  wsConnection: ''
 })
 
 export default appState
