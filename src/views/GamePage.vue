@@ -11,19 +11,27 @@
     >
       <menuWindow
         class="front-layer__window"
-        v-if="appState.gameStatus === '' || appState.gameStatus === 'finished'"
+        v-if="
+          appState.gameStatus === '' ||
+          appState.gameStatus === 'finished' ||
+          appState.gameStatus !== 'mode_selection'
+        "
+        @play_with_ai="play_with_ai()"
         @privat_game="privat_game()"
         @public_game="public_game()"
         @join_game="join_game()"
         v-model="formData"
       />
-      <privateWaitingWindow
-        class="front-layer__window"
-        v-if="appState.gameType === 'private' && appState.gameStatus === 'waiting'"
-      />
+
+      <selectingMode class="front-layer__window" v-if="appState.gameStatus === 'mode_selection'" />
+
       <publicWaitingForOpponent
         class="front-layer__window"
         v-if="appState.gameType === 'public' && appState.gameStatus === 'waiting'"
+      />
+      <privateWaitingWindow
+        class="front-layer__window"
+        v-if="appState.gameType === 'private' && appState.gameStatus === 'waiting'"
       />
 
       <div
@@ -32,8 +40,6 @@
       >
         waiting for your opponent...
       </div>
-
-      <!-- <selectingMode class="front-layer__window"  /> -->
       <!-- <toTakeRevenge class="front-layer__window" /> -->
     </div>
 
@@ -97,7 +103,7 @@ import { useRouter } from 'vue-router'
 import appHeader from '@/components/appHeader.vue'
 import gameBoard from '@/components/gameBoard.vue'
 import menuWindow from '@/components/menuWindow.vue'
-// import selectingMode from '@/components/selectingMode.vue'
+import selectingMode from '@/components/selectingMode.vue'
 // import toTakeRevenge from '@/components/toTakeRevenge.vue'
 import privateWaitingWindow from '@/components/privateWaitingWindow.vue'
 import publicWaitingForOpponent from '@/components/publicWaitingForOpponent.vue'
@@ -124,14 +130,17 @@ const leave_game = () => {
   window.location.reload()
 }
 
+const play_with_ai = () => {
+  appState.gameStatus = 'mode_selection'
+  console.log(appState.gameStatus)
+}
+
 const privat_game = () => {
   emit('game:new', { player: { id: appState.userId }, game: { type: 'private' } })
-  appState.gameType = 'private'
 }
 
 const public_game = () => {
   emit('game:new', { player: { id: appState.userId }, game: { type: 'public' } })
-  appState.gameType = 'public'
 }
 
 const join_game = () => {
@@ -156,6 +165,7 @@ onMounted(() => {
     console.log('Получено действие game:new', payload)
     appState.board = payload.game.board
     appState.gameId = payload.game.id
+    appState.gameType = payload.game.type
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
     appState.playerTurn = payload.game.player_turn
@@ -169,6 +179,7 @@ onMounted(() => {
     }
     appState.board = payload.game.board
     appState.gameId = payload.game.id
+    appState.gameType = payload.game.type
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
     appState.playerTurn = payload.game.player_turn

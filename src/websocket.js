@@ -16,7 +16,7 @@ function connect() {
     emit('connect', { player: { id: appState.userId } })
   })
   ws.addEventListener('close', () => {
-    console.log('WebSocket соединение  акрыто')
+    console.log('WebSocket соединение  закрыто')
     if (!reconnectIntervalId) {
       reconnectIntervalId = setInterval(() => {
         connect()

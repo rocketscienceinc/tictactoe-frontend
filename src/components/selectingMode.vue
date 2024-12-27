@@ -1,14 +1,29 @@
 <template>
   <div class="window">
     <p class="window_text">choose the difficulty</p>
-    <button class="window__b-ease">ease pease</button>
-    <button class="window__b-normal">normal</button>
-    <button class="window__b-pain">feel pain</button>
+    <button class="window__b-ease" @click="play_with_ease_ai">ease pease</button>
+    <button class="window__b-normal" @click="play_with_hard_ai">normal</button>
+    <button class="window__b-pain" @click="play_with_invincible_ai">feel pain</button>
   </div>
 </template>
 
-<script>
+<script setup>
 import '@/styles/window.css'
+import appState from '@/state'
+import { emit } from '@/websocket'
+
+const play_with_ease_ai = () => {
+  emit('game:new', { player: { id: appState.userId }, game: { type: 'bot', difficulty: 'easy' } })
+}
+const play_with_hard_ai = () => {
+  emit('game:new', { player: { id: appState.userId }, game: { type: 'bot', difficulty: 'hard' } })
+}
+const play_with_invincible_ai = () => {
+  emit('game:new', {
+    player: { id: appState.userId },
+    game: { type: 'bot', difficulty: 'invincible' }
+  })
+}
 </script>
 
 <style>
