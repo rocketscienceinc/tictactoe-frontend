@@ -45,6 +45,19 @@
         waiting
       </div>
       <gameBoard class="back-layer__board" />
+      <div
+        class="back-layer__internet-status_offline"
+        v-if="appState.connectionStatus === 'offline'"
+      >
+        No connection to server
+      </div>
+      <div class="back-layer__empty">просто это тут нужно, без вопросов, пожалуйста</div>
+      <div
+        class="back-layer__internet-status_established"
+        v-if="appState.connectionStatus === 'established'"
+      >
+        Connection to server is established
+      </div>
     </div>
   </body>
 </template>
@@ -146,6 +159,25 @@ onMounted(() => {
     '.buttons.';
   align-items: center;
   justify-items: center;
+}
+
+.back-layer__internet-status_offline,
+.back-layer__internet-status_established,
+.back-layer__empty {
+  grid-area: buttons;
+  font-size: clamp(0.8rem, 1.7vw, 2rem);
+}
+
+.back-layer__internet-status_offline {
+  color: var(--red);
+}
+
+.back-layer__internet-status_established {
+  color: var(--blue);
+}
+
+.back-layer__empty {
+  visibility: hidden;
 }
 
 .back-layer__board {
