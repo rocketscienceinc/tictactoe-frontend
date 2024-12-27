@@ -6,15 +6,21 @@
       v-if="
         appState.gameStatus !== 'ongoing' &&
         appState.gameStatus !== 'leave' &&
-        appState.gameStatus !== 'opponent_out'
+        appState.gameStatus !== 'opponent_out' &&
+        appState.gameStatus !== 'request_for_rematch'
       "
     >
       <menuWindow
         class="front-layer__window"
         v-if="
-          appState.gameStatus === '' ||
-          appState.gameStatus === 'finished' ||
-          appState.gameStatus !== 'mode_selection'
+          // (appState.gameStatus === '' ||
+          // appState.gameStatus === 'finished')
+          appState.gameStatus !== 'ongoing' &&
+          appState.gameStatus !== 'waiting' &&
+          appState.gameStatus !== 'leave' &&
+          appState.gameStatus !== 'opponent_out' &&
+          appState.gameStatus !== 'mode_selection' &&
+          appState.gameStatus !== 'request_for_rematch'
         "
         @play_with_ai="play_with_ai()"
         @privat_game="privat_game()"
@@ -40,7 +46,6 @@
       >
         waiting for your opponent...
       </div>
-      <!-- <toTakeRevenge class="front-layer__window" /> -->
     </div>
 
     <div class="middle-layer_two" v-if="appState.gameStatus === 'leave'">
@@ -49,6 +54,10 @@
 
     <div class="middle-layer_three" v-if="appState.gameStatus === 'opponent_out'">
       <opponentDisconnected class="opponent-disconnected_window" />
+    </div>
+
+    <div class="middle-layer_four" v-if="appState.gameStatus === 'request_for_rematch'">
+      <toTakeRevenge class="to-take-revenge_window" />
     </div>
 
     <div class="middle-layer" v-if="visibilityLeaveGame">
@@ -61,6 +70,18 @@
     </div>
     <div class="back-layer">
       <div class="back-layer__empty-game-status">это тут нужно</div>
+      <div
+        class="back-layer__sending-a-request"
+        v-if="showAlert && appState.gameStatus === 'finished'"
+      >
+        Rematch request created, waiting for opponent to confirm
+      </div>
+      <div
+        class="back-layer__rejecting-the-request"
+        v-if="showAlertTwo && appState.gameStatus === 'finished'"
+      >
+        Your opponent rejected your request for rematch
+      </div>
       <div
         class="back-layer__game-status-text"
         v-if="appState.gameStatus === 'ongoing' && appState.playerTurn === appState.playerMark"
@@ -79,14 +100,14 @@
         class="back-layer__internet-status_offline"
         v-if="appState.connectionStatus === 'offline'"
       >
-        No connection to server
+        no internet connection
       </div>
       <div class="back-layer__empty">просто это тут нужно, без вопросов, пожалуйста</div>
       <div
         class="back-layer__internet-status_established"
         v-if="appState.connectionStatus === 'established'"
       >
-        Connection to server is established
+        internet connected
       </div>
     </div>
   </body>
@@ -104,7 +125,7 @@ import appHeader from '@/components/appHeader.vue'
 import gameBoard from '@/components/gameBoard.vue'
 import menuWindow from '@/components/menuWindow.vue'
 import selectingMode from '@/components/selectingMode.vue'
-// import toTakeRevenge from '@/components/toTakeRevenge.vue'
+import toTakeRevenge from '@/components/toTakeRevenge.vue'
 import privateWaitingWindow from '@/components/privateWaitingWindow.vue'
 import publicWaitingForOpponent from '@/components/publicWaitingForOpponent.vue'
 import opponentDisconnected from '@/components/opponentDisconnected.vue'
@@ -114,6 +135,8 @@ import playerLeftGame from '@/components/playerLeftGame.vue'
 const formData = ref({ roomCode: '' })
 const router = useRouter()
 const visibilityLeaveGame = ref(false)
+const showAlert = ref(false)
+const showAlertTwo = ref(false)
 
 const go_to_home_page = () => {
   if (appState.gameStatus === 'ongoing') {
@@ -185,6 +208,29 @@ onMounted(() => {
     appState.playerTurn = payload.game.player_turn
     appState.playerMark = payload.player.mark
   })
+
+  register('game:rematch', (payload) => {
+    if (payload.message === 'Rematch request created, waiting for opponent to confirm') {
+      showAlert.value = true
+      showAlertTwo.value = false
+    }
+    if (payload.message === 'Rematch request was declined') {
+      showAlert.value = false
+      showAlertTwo.value = true
+      setTimeout(() => {
+        showAlertTwo.value = false
+      }, 2000)
+    }
+    if (payload.message === 'Your opponent wants a rematch.') {
+      appState.gameStatus = 'request_for_rematch'
+    }
+
+    if (payload.message === 'Rematch confirmed. New game has started!') {
+      showAlert.value = false
+      showAlertTwo.value = false
+      window.location.reload()
+    }
+  })
 })
 
 const continue_game = () => {
@@ -206,7 +252,8 @@ const continue_game = () => {
 
 .middle-layer,
 .middle-layer_two,
-.middle-layer_three {
+.middle-layer_three,
+.middle-layer_four {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -222,7 +269,8 @@ const continue_game = () => {
 
 .leave-game_window,
 .playerLeft_window,
-.opponent-disconnected_window {
+.opponent-disconnected_window,
+.to-take-revenge_window {
   grid-area: window;
 }
 
@@ -265,6 +313,19 @@ const continue_game = () => {
   grid-area: game-status;
   color: white;
   font-size: clamp(0.8rem, 2vw, 2.5rem);
+}
+
+.back-layer__rejecting-the-request {
+  grid-area: game-status;
+  font-size: clamp(0.8rem, 1.5vw, 2.5rem);
+  color: var(--red);
+  text-align: center;
+}
+.back-layer__sending-a-request {
+  grid-area: game-status;
+  font-size: clamp(0.8rem, 1.5vw, 2.5rem);
+  color: var(--yellow);
+  text-align: center;
 }
 
 .buttons {

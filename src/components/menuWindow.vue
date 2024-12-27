@@ -1,7 +1,13 @@
 <template>
   <div class="window">
     <div class="window__status-header" :class="statusColor">{{ statusHeader }}</div>
-    <!-- <button class="window__buttons window__buttons__take-revenge">take revenge</button> -->
+    <button
+      class="window__buttons window__buttons__take-revenge"
+      @click="take_revenge"
+      v-if="appState.gameStatus === 'finished'"
+    >
+      take revenge
+    </button>
     <button class="window__buttons" @click="$emit('play_with_ai')">play with ai</button>
     <button class="window__buttons" @click="$emit('public_game')">public game</button>
     <button class="window__buttons" @click="$emit('privat_game')">private game</button>
@@ -23,12 +29,17 @@ import '@/styles/window.css'
 import appState from '@/state'
 import { watch, ref, computed } from 'vue'
 import { onMounted } from 'vue'
+import { emit } from '@/websocket'
+
+const take_revenge = () => {
+  emit('game:rematch', { player: { id: appState.userId }, answer: 'yes' })
+}
 
 const props = defineProps({ modelValue: Object })
 
 const formData = ref({ ...props.modelValue })
 
-const emit = defineEmits([
+const emits = defineEmits([
   'update:modelValue',
   'privat_game',
   'join_game',
@@ -36,7 +47,7 @@ const emit = defineEmits([
   'play_with_ai'
 ])
 
-watch(formData, (newData) => emit('update:modelValue', newData), { deep: true })
+watch(formData, (newData) => emits('update:modelValue', newData), { deep: true })
 
 //----------
 
