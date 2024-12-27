@@ -3,7 +3,11 @@
     <appHeader @go_to_home_page="go_to_home_page()" />
     <div
       class="front-layer"
-      v-if="appState.gameStatus !== 'ongoing' && appState.gameStatus !== 'leave'"
+      v-if="
+        appState.gameStatus !== 'ongoing' &&
+        appState.gameStatus !== 'leave' &&
+        appState.gameStatus !== 'opponent_out'
+      "
     >
       <menuWindow
         class="front-layer__window"
@@ -28,14 +32,17 @@
       >
         waiting for your opponent...
       </div>
-      <!-- 
-      <selectingMode class="front-layer__window"  />
-      <opponentDisconnected class="front-layer__window"  />
-      <toTakeRevenge class="front-layer__window" /> -->
+
+      <!-- <selectingMode class="front-layer__window"  /> -->
+      <!-- <toTakeRevenge class="front-layer__window" /> -->
     </div>
 
     <div class="middle-layer_two" v-if="appState.gameStatus === 'leave'">
       <playerLeftGame class="playerLeft_window" />
+    </div>
+
+    <div class="middle-layer_three" v-if="appState.gameStatus === 'opponent_out'">
+      <opponentDisconnected class="opponent-disconnected_window" />
     </div>
 
     <div class="middle-layer" v-if="visibilityLeaveGame">
@@ -90,12 +97,11 @@ import { useRouter } from 'vue-router'
 import appHeader from '@/components/appHeader.vue'
 import gameBoard from '@/components/gameBoard.vue'
 import menuWindow from '@/components/menuWindow.vue'
+// import selectingMode from '@/components/selectingMode.vue'
+// import toTakeRevenge from '@/components/toTakeRevenge.vue'
 import privateWaitingWindow from '@/components/privateWaitingWindow.vue'
 import publicWaitingForOpponent from '@/components/publicWaitingForOpponent.vue'
-
-// import selectingMode from '@/components/selectingMode.vue'
-// import opponentDisconnected from '@/components/opponentDisconnected.vue'
-// import toTakeRevenge from '@/components/toTakeRevenge.vue'
+import opponentDisconnected from '@/components/opponentDisconnected.vue'
 import leaveGame from '@/components/leaveGame.vue'
 import playerLeftGame from '@/components/playerLeftGame.vue'
 
@@ -143,7 +149,6 @@ onMounted(() => {
     appState.board = payload.game.board
     appState.gameId = payload.game.id
     appState.gameStatus = payload.game.status
-    appState.playerMark = payload.player.mark
     appState.playerTurn = payload.game.player_turn
   })
 
@@ -189,7 +194,8 @@ const continue_game = () => {
 }
 
 .middle-layer,
-.middle-layer_two {
+.middle-layer_two,
+.middle-layer_three {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -204,7 +210,8 @@ const continue_game = () => {
 }
 
 .leave-game_window,
-.playerLeft_window {
+.playerLeft_window,
+.opponent-disconnected_window {
   grid-area: window;
 }
 

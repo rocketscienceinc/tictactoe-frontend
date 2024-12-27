@@ -1,7 +1,7 @@
 <template>
   <div class="window">
     <p class="window__top-text">your opponent disconnected</p>
-    <button class="window__leave-game-b">leave game</button>
+    <button class="window__leave-game-b" @click="leave_game_b">leave game</button>
     <p>or</p>
     <p class="window__bottom-text">
       you can wait for 1:00 and the <br />
@@ -10,8 +10,14 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import '@/styles/window.css'
+import appState from '@/state'
+
+const leave_game_b = () => {
+  appState.playerMark = ''
+  window.location.reload()
+}
 </script>
 
 <style>
