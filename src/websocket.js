@@ -12,7 +12,7 @@ function connect() {
     appState.wsConnection = 'open'
     setTimeout(() => {
       appState.wsConnection = ''
-    }, 5000)
+    }, 2000)
     if (reconnectIntervalId) {
       clearInterval(reconnectIntervalId)
       reconnectIntervalId = undefined
