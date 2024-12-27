@@ -2,20 +2,20 @@
   <div class="window">
     <p class="window__text-question">Do you really want to <br />leave the game?</p>
     <div class="window__box">
-      <button class="window__box__leave-game-b">leave game</button>
+      <button class="window__box__leave-game-b" @click="$emit('leave_game')">leave game</button>
       <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-      <button class="window__box__continue-b">continue</button>
+      <button class="window__box__continue-b" @click="$emit('continue_game')">continue</button>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import '@/styles/window.css'
 </script>
 
 <style>
 .window__text-question {
-  font-size: clamp(1.5rem, 2.3vw, 2.5rem);
+  font-size: clamp(1.2rem, 2.3vw, 2.5rem);
   text-align: center;
   margin-bottom: 15%;
 }
@@ -31,7 +31,7 @@ import '@/styles/window.css'
   border: 1px solid transparent;
   background-color: transparent;
   padding: 7px 10px;
-  font-size: clamp(1.3rem, 1.9vw, 2.2rem);
+  font-size: clamp(1rem, 1.9vw, 2.2rem);
 }
 
 .window__box__leave-game-b:hover,
