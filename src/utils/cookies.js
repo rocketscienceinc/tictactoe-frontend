@@ -12,3 +12,10 @@ export default function getCookie(cookieName) {
   }
   return ''
 }
+
+export function setCookie(cookieName, value, hours) {
+  const date = new Date()
+  date.setTime(date.getTime() + hours * 60 * 60 * 1000)
+  const expires = 'expires=' + date.toUTCString()
+  document.cookie = cookieName + '=' + value + ';' + expires + ';path=/'
+}
