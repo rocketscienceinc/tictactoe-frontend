@@ -1,6 +1,6 @@
 <template>
   <body>
-    <appHeader @go_to_home_page="go_to_home_page()" />
+    <appHeader @quit_the_game="quit_the_game()" />
     <div
       class="front-layer"
       v-if="
@@ -13,8 +13,6 @@
       <menuWindow
         class="front-layer__window"
         v-if="
-          // (appState.gameStatus === '' ||
-          // appState.gameStatus === 'finished')
           appState.gameStatus !== 'ongoing' &&
           appState.gameStatus !== 'waiting' &&
           appState.gameStatus !== 'leave' &&
@@ -146,11 +144,9 @@ const visibilityLeaveGame = ref(false)
 const showAlert = ref(false)
 const showAlertTwo = ref(false)
 
-const go_to_home_page = () => {
+const quit_the_game = () => {
   if (appState.gameStatus === 'ongoing') {
     visibilityLeaveGame.value = true
-  } else {
-    router.push('/')
   }
 }
 
