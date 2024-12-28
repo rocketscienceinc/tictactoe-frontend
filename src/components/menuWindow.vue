@@ -1,14 +1,12 @@
 <template>
   <div class="window">
     <div class="window__status-header" :class="statusColor">{{ statusHeader }}</div>
+    <p>Статус игры: {{ appState.gameStatus }}</p>
+    <p>Тип: {{ appState.gameType }}</p>
     <button
       class="window__buttons window__buttons__take-revenge"
       @click="take_revenge"
-      v-if="
-        appState.gameStatus === 'finished' &&
-        appState.gameType === 'private' &&
-        appState.gameType === 'public'
-      "
+      v-if="appState.gameStatus === 'finished' && appState.gameType !== 'bot'"
     >
       take revenge
     </button>

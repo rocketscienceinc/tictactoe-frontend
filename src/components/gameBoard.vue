@@ -33,10 +33,6 @@ register('game:turn', (payload) => {
   appState.gameStatus = payload.game.status
   appState.playerTurn = payload.game.player_turn
   appState.gameType = payload.game.type
-
-  if (payload.game.status === 'finished') {
-    appState.gameType = ''
-  }
 })
 </script>
 
