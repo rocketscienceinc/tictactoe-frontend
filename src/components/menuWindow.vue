@@ -4,7 +4,11 @@
     <button
       class="window__buttons window__buttons__take-revenge"
       @click="take_revenge"
-      v-if="appState.gameStatus === 'finished'"
+      v-if="
+        appState.gameStatus === 'finished' &&
+        appState.gameType === 'private' &&
+        appState.gameType === 'public'
+      "
     >
       take revenge
     </button>

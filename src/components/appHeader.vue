@@ -6,6 +6,7 @@
         appState.gameStatus !== 'ongoing' &&
         appState.gameStatus !== 'waiting' &&
         appState.gameStatus !== 'leave' &&
+        appState.gameStatus !== 'finished' &&
         appState.gameStatus !== 'opponent_out' &&
         appState.gameStatus !== 'mode_selection' &&
         appState.gameStatus !== 'request_for_rematch'
@@ -22,6 +23,7 @@
       v-if="
         appState.gameStatus === 'waiting' ||
         appState.gameStatus === 'ongoing' ||
+        appState.gameStatus === 'finished' ||
         appState.gameStatus === 'mode_selection' ||
         appState.gameStatus === 'request_for_rematch' ||
         appState.gameStatus === 'leave' ||
