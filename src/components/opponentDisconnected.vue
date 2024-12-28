@@ -2,11 +2,6 @@
   <div class="window">
     <p class="window__top-text">your opponent disconnected</p>
     <button class="window__leave-game-b" @click="leave_game_b">leave game</button>
-    <p>or</p>
-    <p class="window__bottom-text">
-      you can wait for 1:00 and the <br />
-      match will end automatically
-    </p>
   </div>
 </template>
 
