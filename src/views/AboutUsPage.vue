@@ -14,7 +14,9 @@
           <div class="bottom-container__board__position__contact web-designer-container">
             <p class="bottom-container__board__position__contact__name">mariana:&nbsp;</p>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://www.linkedin.com/in/aastashov/" class="custom-link">linkedin</a>
+              <a href="https://www.linkedin.com/in/aastashov/" class="custom-link" target="_blank"
+                >linkedin</a
+              >
             </div>
             <p class="custom-link">&nbsp;|&nbsp;Behance</p>
           </div>
@@ -23,12 +25,15 @@
           <div class="bottom-container__board__position__contact">
             <p class="bottom-container__board__position__contact__name">sofia:&nbsp;</p>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://www.linkedin.com/in/sofia-petrova-3867352a4/" class="custom-link"
+              <a
+                href="https://www.linkedin.com/in/sofia-petrova-3867352a4/"
+                class="custom-link"
+                target="_blank"
                 >linkedin</a
               >
             </div>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://github.com/sofia-petrova0802" class="custom-link">
+              <a href="https://github.com/sofia-petrova0802" class="custom-link" target="_blank">
                 &nbsp;|&nbsp;GitHub</a
               >
             </div>
@@ -38,15 +43,18 @@
           <div class="bottom-container__board__position__contact">
             <p class="bottom-container__board__position__contact__name">daniil:&nbsp;</p>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://www.linkedin.com/in/aastashov/" class="custom-link">linkedin</a>
+              <a href="https://www.linkedin.com/in/aastashov/" class="custom-link" target="_blank"
+                >linkedin</a
+              >
             </div>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://github.com/neuroskip" class="custom-link">&nbsp;|&nbsp;GitHub</a>
+              <a href="https://github.com/neuroskip" class="custom-link" target="_blank"
+                >&nbsp;|&nbsp;GitHub</a
+              >
             </div>
           </div>
         </div>
       </div>
-      <!-- empty div for spacing -->
       <div class="footer">
         <div class="footer__container_for_button">
           <div class="footer__back-button" @click="$router.push('/')">&lt;-BACK</div>
@@ -189,23 +197,8 @@ main {
 
   .bottom-container__board {
     height: 190px;
-    padding-top: 18px;
-    padding-bottom: 9px;
-
-    .bottom-container__board__position,
-    .bottom-container__board__position__contact__name,
-    .bottom-container__board__position__contact,
-    .bottom-container__board__position__contact__url {
-      margin: 0.5px;
-    }
-
-    .web-designer-container {
-      margin-bottom: 10px;
-    }
-
-    .backend-container {
-      margin-top: 10px;
-    }
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 }
 </style>
