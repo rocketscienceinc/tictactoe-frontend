@@ -214,7 +214,6 @@ onMounted(() => {
     appState.gameStatus = payload.game.status
     appState.playerMark = payload.player.mark
     appState.playerTurn = payload.game.player_turn
-    appState.playerMark = payload.player.mark
   })
 
   register('game:rematch', (payload) => {
@@ -236,7 +235,14 @@ onMounted(() => {
     if (payload.message === 'Rematch confirmed. New game has started!') {
       showAlert.value = false
       showAlertTwo.value = false
-      window.location.reload()
+      appState.board = payload.game.board
+      appState.gameId = payload.game.id
+      appState.gameType = payload.game.type
+      appState.gameStatus = payload.game.status
+      appState.playerMark = payload.player.mark
+      appState.playerTurn = payload.game.player_turn
+
+      // window.location.reload()
     }
   })
 })
