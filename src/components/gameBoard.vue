@@ -16,6 +16,9 @@
 <script setup>
 import { emit, register } from '@/websocket'
 import appState from '@/state'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
 
 function check(index) {
   emit('game:turn', { player: { id: appState.userId }, cell: index })
@@ -24,7 +27,8 @@ function check(index) {
 register('game:turn', (payload) => {
   console.log('Получено действие game:turn', payload)
   if (payload.error) {
-    alert(payload.error)
+    let errText = payload.error.split(':')[1]
+    toast.error(errText)
     return
   }
   appState.gameId = payload.game.id

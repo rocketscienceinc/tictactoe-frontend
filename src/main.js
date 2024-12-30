@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
+import './styles/toastStyles.css'
 import WelcomePage from '@/views/WelcomePage.vue'
 import AboutUsPage from '@/views/AboutUsPage.vue'
 import NoInternetPage from '@/views/NoInternetPage.vue'
@@ -25,6 +28,16 @@ const router = createRouter({
 })
 
 const app = createApp(App)
+const options = {
+  position: 'top-right',
+  timeout: 3000,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  draggablePercent: 0.6,
+  toastClassName: 'toast'
+}
 app.component(VueQrcode.name, VueQrcode)
 app.use(router)
+app.use(Toast, options)
 app.mount('#app')

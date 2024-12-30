@@ -35,7 +35,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'HomeVideoFont', sans-serif;
-  height: 100%;
+  height: 100vh;
 }
 
 .app-background {

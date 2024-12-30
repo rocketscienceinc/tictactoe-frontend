@@ -1,0 +1,5 @@
+.toast {
+  font-family: 'HomeVideoFont', sans-serif;
+  border: 1px solid var(--red);
+  border-radius: 0px;
+}
