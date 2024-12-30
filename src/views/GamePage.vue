@@ -108,7 +108,6 @@
         >
           internet connected
         </div>
-        <div class="back-layer__empty">просто это тут нужно, без вопросов, пожалуйста</div>
 
         <div class="back-layer__ws-status_closed" v-if="appState.wsConnection === 'closed'">
           No connection to server
