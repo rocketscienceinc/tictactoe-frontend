@@ -78,7 +78,7 @@
         class="back-layer__rejecting-the-request"
         v-if="showAlertTwo && appState.gameStatus === 'finished'"
       >
-        Your opponent rejected your request for rematch
+        Opponent rejects rematch
       </div>
       <div
         class="back-layer__game-status-text"
@@ -147,6 +147,12 @@ const showAlertTwo = ref(false)
 const quit_the_game = () => {
   if (appState.gameStatus === 'ongoing') {
     visibilityLeaveGame.value = true
+  }
+  if (appState.gameStatus === 'waiting') {
+    emit('game:leave', { player: { id: appState.userId } })
+    visibilityLeaveGame.value = false
+    appState.playerMark = ''
+    window.location.reload()
   }
 }
 
@@ -237,8 +243,6 @@ onMounted(() => {
       appState.gameStatus = payload.game.status
       appState.playerMark = payload.player.mark
       appState.playerTurn = payload.game.player_turn
-
-      // window.location.reload()
     }
   })
 })
