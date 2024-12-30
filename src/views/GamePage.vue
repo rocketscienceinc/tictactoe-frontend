@@ -94,6 +94,10 @@
       </div>
 
       <gameBoard class="back-layer__board" />
+      <div class="empty-box">
+        <div class="empty-text">empty empty empty empty empty empty</div>
+        <div class="empty-text">empty empty empty empty empty empty</div>
+      </div>
 
       <div class="back-layer__texts-box">
         <div
@@ -300,7 +304,8 @@ const continue_game = () => {
   justify-items: center;
 }
 
-.back-layer__texts-box {
+.back-layer__texts-box,
+.empty-box {
   grid-area: text;
   display: flex;
   flex-direction: column;
@@ -310,7 +315,7 @@ const continue_game = () => {
 
 .back-layer__internet-status_offline,
 .back-layer__internet-status_established,
-.back-layer__empty,
+.empty-text,
 .back-layer__ws-status_closed,
 .back-layer__ws-status_open {
   font-size: clamp(0.8rem, 1.7vw, 2rem);
@@ -326,7 +331,7 @@ const continue_game = () => {
   color: var(--blue);
 }
 
-.back-layer__empty,
+.empty-text,
 .back-layer__empty-game-status {
   visibility: hidden;
 }
