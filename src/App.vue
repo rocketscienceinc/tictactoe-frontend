@@ -44,7 +44,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-color: rgba(50, 41, 47, 1);
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 

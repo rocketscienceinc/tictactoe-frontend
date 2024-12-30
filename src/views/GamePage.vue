@@ -94,26 +94,29 @@
       </div>
 
       <gameBoard class="back-layer__board" />
-      <div
-        class="back-layer__internet-status_offline"
-        v-if="appState.connectionStatus === 'offline'"
-      >
-        no internet connection
-      </div>
-      <div class="back-layer__empty">просто это тут нужно, без вопросов, пожалуйста</div>
-      <div
-        class="back-layer__internet-status_established"
-        v-if="appState.connectionStatus === 'established'"
-      >
-        internet connected
-      </div>
 
-      <div class="back-layer__ws-status_closed" v-if="appState.wsConnection === 'closed'">
-        No connection to server
-      </div>
+      <div class="back-layer__texts-box">
+        <div
+          class="back-layer__internet-status_offline"
+          v-if="appState.connectionStatus === 'offline'"
+        >
+          no internet connection
+        </div>
+        <div
+          class="back-layer__internet-status_established"
+          v-if="appState.connectionStatus === 'established'"
+        >
+          internet connected
+        </div>
+        <div class="back-layer__empty">просто это тут нужно, без вопросов, пожалуйста</div>
 
-      <div class="back-layer__ws-status_open" v-if="appState.wsConnection === 'open'">
-        Connection to server is established
+        <div class="back-layer__ws-status_closed" v-if="appState.wsConnection === 'closed'">
+          No connection to server
+        </div>
+
+        <div class="back-layer__ws-status_open" v-if="appState.wsConnection === 'open'">
+          Connection to server is established
+        </div>
       </div>
     </div>
   </body>
@@ -293,9 +296,17 @@ const continue_game = () => {
   grid-template-areas:
     '. game-status .'
     '. board .'
-    '.buttons.';
+    '.text.';
   align-items: center;
   justify-items: center;
+}
+
+.back-layer__texts-box {
+  grid-area: text;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .back-layer__internet-status_offline,
@@ -303,7 +314,6 @@ const continue_game = () => {
 .back-layer__empty,
 .back-layer__ws-status_closed,
 .back-layer__ws-status_open {
-  grid-area: buttons;
   font-size: clamp(0.8rem, 1.7vw, 2rem);
 }
 
