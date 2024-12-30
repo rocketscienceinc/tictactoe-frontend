@@ -14,11 +14,18 @@
           <div class="bottom-container__board__position__contact web-designer-container">
             <p class="bottom-container__board__position__contact__name">mariana:&nbsp;</p>
             <div class="bottom-container__board__position__contact__url">
-              <a href="https://www.linkedin.com/in/aastashov/" class="custom-link" target="_blank"
+              <a
+                href="https://www.linkedin.com/in/%D0%BC%D0%B0%D1%80%D1%8C%D1%8F%D0%BD%D0%B0-%D1%80%D0%B0%D0%BA-696b40343/"
+                class="custom-link"
+                target="_blank"
                 >linkedin</a
               >
             </div>
-            <p class="custom-link">&nbsp;|&nbsp;Behance</p>
+            <div class="bottom-container__board__position__contact__url">
+              <a href="https://www.behance.net/5f973723" class="custom-link" target="_blank"
+                >&nbsp;|&nbsp;Behance
+              </a>
+            </div>
           </div>
 
           <p class="bottom-container__board__position">frontend</p>
